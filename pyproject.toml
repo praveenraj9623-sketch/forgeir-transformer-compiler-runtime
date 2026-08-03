@@ -42,5 +42,5 @@ strict = true
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = "forgeir_py"
+module = ["forgeir_py", "forgeir_cuda_py"]
 ignore_missing_imports = true

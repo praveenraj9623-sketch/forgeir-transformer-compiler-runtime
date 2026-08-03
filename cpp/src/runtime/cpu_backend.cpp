@@ -10,6 +10,12 @@
 #include <utility>
 #include <vector>
 
+#include "forgeir/core/build_config.hpp"
+
+#if FORGEIR_CUDA_COMPILED
+#include "forgeir/backends/cuda/cuda_backend.hpp"
+#endif
+
 namespace forgeir {
 namespace {
 
@@ -649,13 +655,18 @@ Status CpuBackend::execute(const Operation& operation, const std::vector<ConstTe
 Result<std::unique_ptr<Backend>>
 BackendRegistry::create(const std::string_view backend_name,
                         const CpuMatMulImplementation matmul_implementation) {
-    if (backend_name != "cpu") {
-        return Status::error(StatusCode::unsupported,
-                             "backend registry has no implementation named '" +
-                                 std::string(backend_name) + "'");
+    if (backend_name == "cpu") {
+        std::unique_ptr<Backend> backend = std::make_unique<CpuBackend>(matmul_implementation);
+        return backend;
     }
-    std::unique_ptr<Backend> backend = std::make_unique<CpuBackend>(matmul_implementation);
-    return backend;
+#if FORGEIR_CUDA_COMPILED
+    if (backend_name == "cuda") {
+        std::unique_ptr<Backend> backend = std::make_unique<CudaBackend>();
+        return backend;
+    }
+#endif
+    return Status::error(StatusCode::unsupported, "backend registry has no implementation named '" +
+                                                      std::string(backend_name) + "'");
 }
 
 } // namespace forgeir

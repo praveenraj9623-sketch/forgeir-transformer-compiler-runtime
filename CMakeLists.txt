@@ -15,13 +15,26 @@ option(FORGEIR_ENABLE_CUDA "Compile the optional CUDA integration" OFF)
 option(FORGEIR_ENABLE_HIP "Compile the optional HIP integration" OFF)
 option(FORGEIR_ENABLE_MLIR "Compile the optional MLIR integration" OFF)
 
-foreach(feature IN ITEMS CUDA HIP)
+foreach(feature IN ITEMS HIP)
     if(FORGEIR_ENABLE_${feature})
         message(FATAL_ERROR
             "FORGEIR_ENABLE_${feature}=ON is unsupported in Milestone 1; "
             "the ${feature} integration has not been implemented.")
     endif()
 endforeach()
+
+set(FORGEIR_CUDA_COMPILED 0)
+if(FORGEIR_ENABLE_CUDA)
+    enable_language(CUDA)
+    find_package(CUDAToolkit REQUIRED)
+    set(CMAKE_CUDA_STANDARD 17)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    set(CMAKE_CUDA_EXTENSIONS OFF)
+    if(NOT CMAKE_CUDA_ARCHITECTURES)
+        set(CMAKE_CUDA_ARCHITECTURES native)
+    endif()
+    set(FORGEIR_CUDA_COMPILED 1)
+endif()
 
 set(FORGEIR_MLIR_COMPILED 0)
 if(FORGEIR_ENABLE_MLIR)
@@ -94,13 +107,29 @@ add_library(forgeir_core STATIC
 if(FORGEIR_ENABLE_MLIR)
     target_sources(forgeir_core PRIVATE cpp/src/mlir/stablehlo_lowering.cpp)
 endif()
+if(FORGEIR_ENABLE_CUDA)
+    target_sources(forgeir_core PRIVATE backends/cuda/src/cuda_backend.cu)
+endif()
 add_library(ForgeIR::core ALIAS forgeir_core)
 target_include_directories(forgeir_core
     PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/include>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated>"
 )
+if(FORGEIR_ENABLE_CUDA)
+    target_include_directories(forgeir_core PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/backends/cuda/include>"
+    )
+endif()
 target_link_libraries(forgeir_core PUBLIC nlohmann_json::nlohmann_json)
+if(FORGEIR_ENABLE_CUDA)
+    target_link_libraries(forgeir_core PUBLIC CUDA::cudart)
+    target_compile_definitions(forgeir_core PRIVATE
+        FORGEIR_NVCC_VERSION="${CMAKE_CUDA_COMPILER_VERSION}"
+    )
+    set_target_properties(forgeir_core PROPERTIES CUDA_SEPARABLE_COMPILATION OFF)
+    forgeir_enable_cuda_warnings(forgeir_core)
+endif()
 set_target_properties(forgeir_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 forgeir_enable_strict_warnings(forgeir_core)
 
@@ -111,6 +140,15 @@ forgeir_enable_strict_warnings(forgeir_cli)
 pybind11_add_module(forgeir_py MODULE bindings/python_module.cpp)
 target_link_libraries(forgeir_py PRIVATE ForgeIR::core)
 forgeir_enable_strict_warnings(forgeir_py)
+
+if(FORGEIR_ENABLE_CUDA)
+    pybind11_add_module(forgeir_cuda_py MODULE backends/cuda/src/python_module.cpp)
+    target_link_libraries(forgeir_cuda_py PRIVATE ForgeIR::core CUDA::cudart)
+    target_include_directories(forgeir_cuda_py PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/backends/cuda/include"
+    )
+    forgeir_enable_strict_warnings(forgeir_cuda_py)
+endif()
 
 include(CTest)
 if(BUILD_TESTING)
@@ -125,6 +163,10 @@ if(BUILD_TESTING)
     )
     if(FORGEIR_ENABLE_MLIR)
         target_sources(forgeir_tests PRIVATE tests/cpp/mlir_bridge_test.cpp)
+    endif()
+    if(FORGEIR_ENABLE_CUDA)
+        target_sources(forgeir_tests PRIVATE backends/cuda/tests/cuda_backend_test.cu)
+        forgeir_enable_cuda_warnings(forgeir_tests)
     endif()
     target_link_libraries(forgeir_tests
         PRIVATE
@@ -216,6 +258,17 @@ if(BUILD_TESTING)
         )
         set_tests_properties(forgeir_cli_emit_mlir_disabled PROPERTIES
             WILL_FAIL TRUE
+        )
+    endif()
+
+    if(FORGEIR_ENABLE_CUDA)
+        add_test(
+            NAME forgeir_cuda_pytorch_parity
+            COMMAND "${CMAKE_COMMAND}" -E env
+                "PYTHONPATH=$<TARGET_FILE_DIR:forgeir_cuda_py>$<IF:$<PLATFORM_ID:Windows>,$<SEMICOLON>,:>${CMAKE_CURRENT_SOURCE_DIR}/python"
+                "${Python_EXECUTABLE}" -m forgeir.benchmark.cuda_validation
+                --output "${CMAKE_CURRENT_BINARY_DIR}/cuda_validation.json"
+                --warmup 3 --iterations 5
         )
     endif()
 endif()
