@@ -45,6 +45,13 @@ class Operation {
     [[nodiscard]] const std::vector<std::string>& input_ids() const noexcept;
     [[nodiscard]] const std::vector<std::string>& output_ids() const noexcept;
     [[nodiscard]] const nlohmann::json& attributes() const noexcept;
+    [[nodiscard]] std::vector<std::string>& mutable_input_ids() noexcept;
+    [[nodiscard]] nlohmann::json& mutable_attributes() noexcept;
+    void set_type(OperationType type) noexcept;
+    void set_semantic_name(std::string semantic_name);
+    void set_input_ids(std::vector<std::string> input_ids);
+    void set_output_ids(std::vector<std::string> output_ids);
+    void set_attributes(nlohmann::json attributes);
 
   private:
     std::string id_;

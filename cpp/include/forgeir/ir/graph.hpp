@@ -46,6 +46,9 @@ class Graph {
     [[nodiscard]] const std::vector<std::string>& output_ids() const noexcept;
     [[nodiscard]] const std::vector<Value>& values() const noexcept;
     [[nodiscard]] const std::vector<Operation>& operations() const noexcept;
+    [[nodiscard]] std::vector<Value>& mutable_values() noexcept;
+    [[nodiscard]] std::vector<Operation>& mutable_operations() noexcept;
+    void set_graph_hash(std::string graph_hash);
     [[nodiscard]] Result<GraphSummary> summary() const;
 
   private:

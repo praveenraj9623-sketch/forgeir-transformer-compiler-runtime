@@ -128,4 +128,24 @@ const std::vector<std::string>& Operation::output_ids() const noexcept { return 
 
 const nlohmann::json& Operation::attributes() const noexcept { return attributes_; }
 
+std::vector<std::string>& Operation::mutable_input_ids() noexcept { return input_ids_; }
+
+nlohmann::json& Operation::mutable_attributes() noexcept { return attributes_; }
+
+void Operation::set_type(const OperationType type) noexcept { type_ = type; }
+
+void Operation::set_semantic_name(std::string semantic_name) {
+    semantic_name_ = std::move(semantic_name);
+}
+
+void Operation::set_input_ids(std::vector<std::string> input_ids) {
+    input_ids_ = std::move(input_ids);
+}
+
+void Operation::set_output_ids(std::vector<std::string> output_ids) {
+    output_ids_ = std::move(output_ids);
+}
+
+void Operation::set_attributes(nlohmann::json attributes) { attributes_ = std::move(attributes); }
+
 } // namespace forgeir

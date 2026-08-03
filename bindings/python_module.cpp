@@ -6,6 +6,7 @@
 #include "forgeir/core/build_info.hpp"
 #include "forgeir/core/version.hpp"
 #include "forgeir/ir/graph_loader.hpp"
+#include "forgeir/passes/verification.hpp"
 
 namespace py = pybind11;
 
@@ -54,5 +55,14 @@ PYBIND11_MODULE(forgeir_py, module) {
         result["operation_histogram"] = std::move(histogram);
         result["estimated_parameter_bytes"] = summary.value().estimated_parameter_bytes;
         return result;
+    });
+    module.def("verify_graph", [](const std::string& path) {
+        auto graph = forgeir::GraphLoader::load_from_file(path);
+        if (!graph.ok()) {
+            throw py::value_error(graph.status().message());
+        }
+        const forgeir::VerificationReport report = forgeir::verify_graph(graph.value());
+        const std::string json_text = forgeir::verification_report_json(report).dump();
+        return py::module_::import("json").attr("loads")(json_text);
     });
 }

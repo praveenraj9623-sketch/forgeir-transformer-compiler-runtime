@@ -228,7 +228,11 @@ parse_operations(const Json& document,
             return outputs.status();
         }
         const auto expected = expected_input_count(type.value());
-        if (!expected.has_value() || inputs.value().size() != expected.value()) {
+        const bool valid_fused_count =
+            (type.value() == OperationType::linear || type.value() == OperationType::mat_mul) &&
+            (inputs.value().size() == 2 || inputs.value().size() == 3);
+        if (!valid_fused_count &&
+            (!expected.has_value() || inputs.value().size() != expected.value())) {
             return invalid("operation " + id.value() + " has an invalid input count for " +
                            type_name.value());
         }
@@ -281,7 +285,13 @@ Status verify_value_roles(const std::vector<Value>& values,
         } else if (operation.type() == OperationType::parameter) {
             expected_kind = ValueKind::parameter;
         } else if (operation.type() == OperationType::constant) {
-            expected_kind = ValueKind::constant;
+            const ValueKind actual_kind =
+                values[value_indices.at(operation.output_ids().front())].kind();
+            if (actual_kind != ValueKind::constant && actual_kind != ValueKind::output) {
+                return invalid("operation " + operation.id() +
+                               " constant output must have constant or output value kind");
+            }
+            continue;
         }
         if (expected_kind == ValueKind::intermediate) {
             if (output_kind != ValueKind::intermediate && output_kind != ValueKind::output) {

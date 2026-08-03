@@ -59,10 +59,26 @@ add_library(forgeir_core STATIC
     cpp/src/ir/data_type.cpp
     cpp/src/ir/graph.cpp
     cpp/src/ir/graph_loader.cpp
+    cpp/src/ir/graph_writer.cpp
     cpp/src/ir/operation.cpp
     cpp/src/ir/shape.cpp
     cpp/src/ir/tensor_descriptor.cpp
     cpp/src/ir/value.cpp
+    cpp/src/passes/canonicalisation_pass.cpp
+    cpp/src/passes/constant_folding_pass.cpp
+    cpp/src/passes/dead_code_elimination_pass.cpp
+    cpp/src/passes/dtype_propagation_pass.cpp
+    cpp/src/passes/fuse_bias_gelu_pass.cpp
+    cpp/src/passes/graph_verifier_pass.cpp
+    cpp/src/passes/optimization.cpp
+    cpp/src/passes/pass.cpp
+    cpp/src/passes/pass_manager.cpp
+    cpp/src/passes/redundant_reshape_elimination_pass.cpp
+    cpp/src/passes/redundant_transpose_elimination_pass.cpp
+    cpp/src/passes/rewrite_utils.cpp
+    cpp/src/passes/semantic_verifier.cpp
+    cpp/src/passes/shape_inference_pass.cpp
+    cpp/src/passes/verification.cpp
 )
 add_library(ForgeIR::core ALIAS forgeir_core)
 target_include_directories(forgeir_core
@@ -87,6 +103,8 @@ if(BUILD_TESTING)
     add_executable(forgeir_tests
         tests/cpp/core_smoke_test.cpp
         tests/cpp/graph_loader_test.cpp
+        tests/cpp/optimization_pass_test.cpp
+        tests/cpp/pass_manager_test.cpp
     )
     target_link_libraries(forgeir_tests
         PRIVATE
@@ -119,6 +137,25 @@ if(BUILD_TESTING)
     )
     set_tests_properties(forgeir_cli_inspect_graph PROPERTIES
         PASS_REGULAR_EXPRESSION "\"operation_count\": 3"
+    )
+
+    add_test(
+        NAME forgeir_cli_verify_graph
+        COMMAND forgeir_cli verify
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+    )
+    set_tests_properties(forgeir_cli_verify_graph PROPERTIES
+        PASS_REGULAR_EXPRESSION "\"success\": true"
+    )
+
+    add_test(
+        NAME forgeir_cli_verification_report
+        COMMAND forgeir_cli verify
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+            --report "${CMAKE_CURRENT_BINARY_DIR}/verification_report_test.json"
+    )
+    set_tests_properties(forgeir_cli_verification_report PROPERTIES
+        PASS_REGULAR_EXPRESSION "\"diagnostic_counts\""
     )
 
     add_test(

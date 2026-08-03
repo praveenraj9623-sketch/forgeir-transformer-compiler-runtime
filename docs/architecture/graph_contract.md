@@ -47,8 +47,8 @@ output value IDs, and operation-specific attributes.
 | `Input` | Declares a graph input value. |
 | `Parameter` | Declares an external weight value. |
 | `Constant` | Declares a scalar or tensor literal. |
-| `MatMul` | Matrix multiplication for attention scores or context. |
-| `Linear` | Bias-free learned projection using an external parameter. |
+| `MatMul` | Matrix multiplication for attention scores or context; optimized form may add a verified rank-one bias and exact fused activation attributes. |
+| `Linear` | Learned projection. The exporter emits a bias-free two-input form; optimized form may add a verified rank-one bias and exact fused activation attributes. |
 | `Add` | Residual elementwise addition. |
 | `Mul` | Elementwise or scalar multiplication. |
 | `Div` | Elementwise or scalar division available in schema version 1.0. |
@@ -61,6 +61,13 @@ output value IDs, and operation-specific attributes.
 
 No FX node is ignored. Placeholders become `Input`; supported modules and functions lower explicitly;
 the FX output identifies the ordered ForgeIR output. Every other node raises a structured error.
+
+The Milestone 6 optimized projection form is backward compatible within schema version `1.0`:
+operation attributes are extensible and operation inputs were already represented as an ordered
+array. Unoptimized two-input `Linear` and `MatMul` remain valid. A fused projection adds a third,
+rank-one parameter or constant input, `bias=true`, `fused_activation="GELU"`, and
+`fused_activation_approximate="none"`. Load-time and semantic verification reject an invalid bias
+shape or operand count. Migration coverage loads and verifies both the original and fused forms.
 
 ## Controlled attention expansion
 

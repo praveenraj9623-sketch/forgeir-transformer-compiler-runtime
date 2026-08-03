@@ -7,6 +7,7 @@ from forgeir.reference.artifacts import (
     verify_manifest,
 )
 from forgeir.reference.config import TinyTransformerConfig
+from forgeir.reference.evaluator import evaluate_graph
 from forgeir.reference.model import (
     CausalSelfAttention,
     RMSNorm,
@@ -26,6 +27,7 @@ __all__ = [
     "array_content_sha256",
     "create_deterministic_input",
     "create_deterministic_model",
+    "evaluate_graph",
     "generate_reference_artifacts",
     "verify_manifest",
 ]

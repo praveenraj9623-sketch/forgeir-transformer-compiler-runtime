@@ -93,7 +93,9 @@ def test_rmsnorm_matches_equation() -> None:
 
 def test_attention_shape_and_probability_normalization() -> None:
     config = _small_config()
-    attention = CausalSelfAttention(config).eval()
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(config.seed)
+        attention = CausalSelfAttention(config).eval()
     hidden_states = torch.arange(32, dtype=torch.float32).reshape(1, 4, 8) / 32.0
     output, weights = attention.forward_with_weights(hidden_states)
     assert output.shape == (1, 4, 8)

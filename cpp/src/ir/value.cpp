@@ -53,4 +53,6 @@ const TensorDescriptor& Value::descriptor() const noexcept { return descriptor_;
 
 ValueKind Value::kind() const noexcept { return kind_; }
 
+void Value::set_kind(const ValueKind kind) noexcept { kind_ = kind; }
+
 } // namespace forgeir

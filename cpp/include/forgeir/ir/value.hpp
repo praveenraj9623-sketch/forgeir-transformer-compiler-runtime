@@ -21,6 +21,7 @@ class Value {
     [[nodiscard]] const std::string& semantic_name() const noexcept;
     [[nodiscard]] const TensorDescriptor& descriptor() const noexcept;
     [[nodiscard]] ValueKind kind() const noexcept;
+    void set_kind(ValueKind kind) noexcept;
 
   private:
     std::string id_;

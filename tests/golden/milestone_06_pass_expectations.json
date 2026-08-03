@@ -1,0 +1,99 @@
+{
+  "canonicalisation": {
+    "operation_count": 3,
+    "value_count": 3,
+    "outputs": ["v0002"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0001", "type": "Parameter", "inputs": [], "outputs": ["v0001"]},
+      {"id": "op0002", "type": "Softmax", "inputs": ["v0000"], "outputs": ["v0002"]}
+    ]
+  },
+  "constant_folding": {
+    "operation_count": 5,
+    "value_count": 5,
+    "outputs": ["v0004"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0001", "type": "Constant", "inputs": [], "outputs": ["v0001"]},
+      {"id": "op0002", "type": "Constant", "inputs": [], "outputs": ["v0002"]},
+      {"id": "op0003", "type": "Constant", "inputs": [], "outputs": ["v0003"]},
+      {"id": "op0004", "type": "Add", "inputs": ["v0000", "v0003"], "outputs": ["v0004"]}
+    ]
+  },
+  "dead_code_elimination": {
+    "operation_count": 5,
+    "value_count": 5,
+    "outputs": ["v0004"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0001", "type": "Constant", "inputs": [], "outputs": ["v0001"]},
+      {"id": "op0002", "type": "Constant", "inputs": [], "outputs": ["v0002"]},
+      {"id": "op0003", "type": "Add", "inputs": ["v0001", "v0002"], "outputs": ["v0003"]},
+      {"id": "op0004", "type": "Add", "inputs": ["v0000", "v0003"], "outputs": ["v0004"]}
+    ]
+  },
+  "redundant_reshape": {
+    "operation_count": 2,
+    "value_count": 2,
+    "outputs": ["v0002"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0002", "type": "GELU", "inputs": ["v0000"], "outputs": ["v0002"]}
+    ]
+  },
+  "redundant_transpose": {
+    "operation_count": 2,
+    "value_count": 2,
+    "outputs": ["v0002"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0002", "type": "GELU", "inputs": ["v0000"], "outputs": ["v0002"]}
+    ]
+  },
+  "fuse_bias_gelu": {
+    "operation_count": 4,
+    "value_count": 4,
+    "outputs": ["v0005"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0001", "type": "Parameter", "inputs": [], "outputs": ["v0001"]},
+      {"id": "op0002", "type": "Parameter", "inputs": [], "outputs": ["v0002"]},
+      {"id": "op0005", "type": "Linear", "inputs": ["v0000", "v0001", "v0002"], "outputs": ["v0005"]}
+    ]
+  },
+  "O1": {
+    "operation_count": 3,
+    "value_count": 3,
+    "outputs": ["v0004"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0003", "type": "Constant", "inputs": [], "outputs": ["v0003"]},
+      {"id": "op0004", "type": "Add", "inputs": ["v0000", "v0003"], "outputs": ["v0004"]}
+    ]
+  },
+  "O0": {
+    "operation_count": 6,
+    "value_count": 6,
+    "outputs": ["v0005"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0001", "type": "Parameter", "inputs": [], "outputs": ["v0001"]},
+      {"id": "op0002", "type": "Parameter", "inputs": [], "outputs": ["v0002"]},
+      {"id": "op0003", "type": "Linear", "inputs": ["v0000", "v0001"], "outputs": ["v0003"]},
+      {"id": "op0004", "type": "Add", "inputs": ["v0003", "v0002"], "outputs": ["v0004"]},
+      {"id": "op0005", "type": "GELU", "inputs": ["v0004"], "outputs": ["v0005"]}
+    ]
+  },
+  "O2": {
+    "operation_count": 4,
+    "value_count": 4,
+    "outputs": ["v0006"],
+    "operations": [
+      {"id": "op0000", "type": "Input", "inputs": [], "outputs": ["v0000"]},
+      {"id": "op0002", "type": "Parameter", "inputs": [], "outputs": ["v0002"]},
+      {"id": "op0003", "type": "Parameter", "inputs": [], "outputs": ["v0003"]},
+      {"id": "op0006", "type": "Linear", "inputs": ["v0000", "v0002", "v0003"], "outputs": ["v0006"]}
+    ]
+  }
+}

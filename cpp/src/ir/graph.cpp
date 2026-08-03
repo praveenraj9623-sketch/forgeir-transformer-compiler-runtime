@@ -36,6 +36,12 @@ const std::vector<Value>& Graph::values() const noexcept { return values_; }
 
 const std::vector<Operation>& Graph::operations() const noexcept { return operations_; }
 
+std::vector<Value>& Graph::mutable_values() noexcept { return values_; }
+
+std::vector<Operation>& Graph::mutable_operations() noexcept { return operations_; }
+
+void Graph::set_graph_hash(std::string graph_hash) { graph_hash_ = std::move(graph_hash); }
+
 Result<GraphSummary> Graph::summary() const {
     GraphSummary result;
     result.schema_version = schema_version_;
