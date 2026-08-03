@@ -1,0 +1,48 @@
+# Python environments and caches
+.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build directories and generated build state
+build/
+build-*/
+cmake-build-*/
+**/CMakeFiles/
+**/CMakeCache.txt
+
+# IDE caches
+.idea/
+.vscode/
+*.swp
+
+# Generated artifacts
+artifacts/**
+!artifacts/**/
+!artifacts/**/.gitkeep
+
+# Downloaded model weights
+*.safetensors
+*.ckpt
+*.pth
+*.onnx
+artifacts/weights/**
+!artifacts/weights/.gitkeep
+
+# Benchmark outputs
+benchmarks/results/**
+!benchmarks/results/.gitkeep
+
+# GPU build outputs
+backends/cuda/build/
+backends/hip/build/
+*.cubin
+*.fatbin
+*.hsaco
+
+# Locally cloned third-party sources
+third_party/**
+!third_party/.gitkeep
