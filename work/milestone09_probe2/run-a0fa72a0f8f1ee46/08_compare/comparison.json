@@ -1,0 +1,12 @@
+{
+  "absolute_tolerance": 2e-06,
+  "comparison_schema_version": "1.0",
+  "finite_value_count": 8192,
+  "max_absolute_error": 5.662441253662109e-07,
+  "max_relative_error": 0.0023864314425736666,
+  "nonfinite_classification_match": true,
+  "output_id": "v0034",
+  "passed": true,
+  "relative_tolerance": 2e-05,
+  "violation_count": 0
+}

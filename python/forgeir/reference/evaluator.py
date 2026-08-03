@@ -138,8 +138,10 @@ def evaluate_graph(
     graph: Path | Mapping[str, Any],
     inputs: Mapping[str, Tensor],
     weight_archive: Path,
+    *,
+    capture_value_ids: tuple[str, ...] = (),
 ) -> dict[str, Tensor]:
-    """Evaluate a controlled ForgeIR graph on CPU and return declared outputs by value ID."""
+    """Evaluate a controlled graph and return declared outputs plus requested checkpoints."""
     document = _document(graph)
     verify_graph_hash(document)
     metadata = _value_metadata(document)
@@ -208,4 +210,10 @@ def evaluate_graph(
     output_ids = document.get("outputs")
     if not isinstance(output_ids, list) or not all(isinstance(item, str) for item in output_ids):
         raise ValueError("graph outputs must be an array of value IDs")
-    return {output_id: tensors[output_id] for output_id in output_ids}
+    requested = list(output_ids)
+    for value_id in capture_value_ids:
+        if value_id not in tensors:
+            raise ValueError(f"requested checkpoint {value_id} was not produced")
+        if value_id not in requested:
+            requested.append(value_id)
+    return {value_id: tensors[value_id] for value_id in requested}

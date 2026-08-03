@@ -1,0 +1,390 @@
+{
+  "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+  "records": [
+    {
+      "arena_offset": null,
+      "kernel": "external.input",
+      "operation_id": "op0000",
+      "operation_type": "Input",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0001",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.RMSNorm",
+      "operation_id": "op0002",
+      "operation_type": "RMSNorm",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0003",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0004",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": 65536,
+      "kernel": "cpu.Reshape",
+      "operation_id": "op0005",
+      "operation_type": "Reshape",
+      "output_shape": [
+        2,
+        32,
+        4,
+        32
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.Transpose",
+      "operation_id": "op0006",
+      "operation_type": "Transpose",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0007",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "arena_offset": 65536,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0008",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": 98304,
+      "kernel": "cpu.Reshape",
+      "operation_id": "op0009",
+      "operation_type": "Reshape",
+      "output_shape": [
+        2,
+        32,
+        4,
+        32
+      ]
+    },
+    {
+      "arena_offset": 65536,
+      "kernel": "cpu.Transpose",
+      "operation_id": "op0010",
+      "operation_type": "Transpose",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 98304,
+      "kernel": "cpu.Transpose",
+      "operation_id": "op0011",
+      "operation_type": "Transpose",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0012",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "arena_offset": 65536,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0013",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.Reshape",
+      "operation_id": "op0014",
+      "operation_type": "Reshape",
+      "output_shape": [
+        2,
+        32,
+        4,
+        32
+      ]
+    },
+    {
+      "arena_offset": 65536,
+      "kernel": "cpu.Transpose",
+      "operation_id": "op0015",
+      "operation_type": "Transpose",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0016",
+      "operation_type": "MatMul",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_constant",
+      "operation_id": "op0017",
+      "operation_type": "Constant",
+      "output_shape": []
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.Mul",
+      "operation_id": "op0018",
+      "operation_type": "Mul",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.CausalMask",
+      "operation_id": "op0019",
+      "operation_type": "CausalMask",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.Softmax",
+      "operation_id": "op0020",
+      "operation_type": "Softmax",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0021",
+      "operation_type": "MatMul",
+      "output_shape": [
+        2,
+        4,
+        32,
+        32
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.Transpose",
+      "operation_id": "op0022",
+      "operation_type": "Transpose",
+      "output_shape": [
+        2,
+        32,
+        4,
+        32
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.Reshape",
+      "operation_id": "op0023",
+      "operation_type": "Reshape",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0024",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0025",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": 0,
+      "kernel": "cpu.Add",
+      "operation_id": "op0026",
+      "operation_type": "Add",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0027",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.RMSNorm",
+      "operation_id": "op0028",
+      "operation_type": "RMSNorm",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0029",
+      "operation_type": "Parameter",
+      "output_shape": [
+        384,
+        128
+      ]
+    },
+    {
+      "arena_offset": 131072,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0030",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        384
+      ]
+    },
+    {
+      "arena_offset": 32768,
+      "kernel": "cpu.GELU",
+      "operation_id": "op0031",
+      "operation_type": "GELU",
+      "output_shape": [
+        2,
+        32,
+        384
+      ]
+    },
+    {
+      "arena_offset": null,
+      "kernel": "external.immutable_parameter",
+      "operation_id": "op0032",
+      "operation_type": "Parameter",
+      "output_shape": [
+        128,
+        384
+      ]
+    },
+    {
+      "arena_offset": 131072,
+      "kernel": "cpu.tiled_reference_order",
+      "operation_id": "op0033",
+      "operation_type": "Linear",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    },
+    {
+      "arena_offset": 229376,
+      "kernel": "cpu.Add",
+      "operation_id": "op0034",
+      "operation_type": "Add",
+      "output_shape": [
+        2,
+        32,
+        128
+      ]
+    }
+  ],
+  "trace_schema_version": "1.0"
+}

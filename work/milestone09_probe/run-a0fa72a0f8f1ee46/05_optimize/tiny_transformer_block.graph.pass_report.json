@@ -1,0 +1,240 @@
+{
+  "artifacts": {
+    "after_dot": "05_optimize/tiny_transformer_block.graph.after.dot",
+    "before_dot": "05_optimize/tiny_transformer_block.graph.before.dot",
+    "optimized_graph": "05_optimize/tiny_transformer_block.graph.json",
+    "pass_report": "05_optimize/tiny_transformer_block.graph.pass_report.json"
+  },
+  "changed": true,
+  "input_graph_hash": "363fb53558b481a2a302009bc22696d503fb58a61a483ec28580bf580861979c",
+  "level": "O2",
+  "maximum_folded_tensor_elements": 1024,
+  "operation_counts": {
+    "after": 35,
+    "before": 35,
+    "change": 0
+  },
+  "optimization_report_schema_version": "1.0",
+  "output_graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+  "pipeline": {
+    "changed": true,
+    "diagnostic_counts": {
+      "error": 0,
+      "warning": 0
+    },
+    "diagnostics": [],
+    "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+    "graph_schema_version": "1.0",
+    "pass_executions": [
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "CanonicalisationPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": true,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "CanonicalisationPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "CanonicalisationPass",
+        "stage": "post_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "ConstantFoldingPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "ConstantFoldingPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "ConstantFoldingPass",
+        "stage": "post_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantReshapeEliminationPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantReshapeEliminationPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantReshapeEliminationPass",
+        "stage": "post_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantTransposeEliminationPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantTransposeEliminationPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "RedundantTransposeEliminationPass",
+        "stage": "post_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "FuseBiasGELUPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "FuseBiasGELUPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "FuseBiasGELUPass",
+        "stage": "post_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "DeadCodeEliminationPass",
+        "stage": "pre_verification",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "DeadCodeEliminationPass",
+        "stage": "pass",
+        "success": true
+      },
+      {
+        "changed": false,
+        "diagnostic_count": 0,
+        "nodes_added": 0,
+        "nodes_removed": 0,
+        "pass": "DeadCodeEliminationPass",
+        "stage": "post_verification",
+        "success": true
+      }
+    ],
+    "report_schema_version": "1.0",
+    "rewrites": [
+      {
+        "nodes_added": [],
+        "nodes_modified": [
+          "op0002"
+        ],
+        "nodes_removed": [],
+        "pass": "CanonicalisationPass",
+        "reason": "normalised negative axis to its nonnegative canonical index",
+        "stage": "pass",
+        "values_removed": []
+      },
+      {
+        "nodes_added": [],
+        "nodes_modified": [
+          "op0020"
+        ],
+        "nodes_removed": [],
+        "pass": "CanonicalisationPass",
+        "reason": "normalised negative axis to its nonnegative canonical index",
+        "stage": "pass",
+        "values_removed": []
+      },
+      {
+        "nodes_added": [],
+        "nodes_modified": [
+          "op0028"
+        ],
+        "nodes_removed": [],
+        "pass": "CanonicalisationPass",
+        "reason": "normalised negative axis to its nonnegative canonical index",
+        "stage": "pass",
+        "values_removed": []
+      }
+    ],
+    "status": {
+      "code": 0,
+      "message": ""
+    },
+    "success": true
+  },
+  "success": true,
+  "value_counts": {
+    "after": 35,
+    "before": 35,
+    "change": 0
+  }
+}

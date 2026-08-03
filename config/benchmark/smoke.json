@@ -1,0 +1,28 @@
+{
+  "absolute_tolerance": 2e-06,
+  "benchmark_schema_version": "1.0",
+  "gross_failure_max_iteration_seconds": 60.0,
+  "measured_iteration_count": 3,
+  "model": {
+    "batch_size": 1,
+    "dtype": "float32",
+    "epsilon": 1e-05,
+    "hidden_size": 8,
+    "intermediate_size": 16,
+    "num_heads": 2,
+    "seed": 42,
+    "sequence_length": 4,
+    "vocabulary_size": 32
+  },
+  "name": "smoke",
+  "optimization_levels": [
+    "O0",
+    "O1",
+    "O2"
+  ],
+  "process_count": 1,
+  "pytorch_operation_profile_iterations": 1,
+  "relative_tolerance": 2e-05,
+  "torch_num_threads": 1,
+  "warmup_count": 1
+}

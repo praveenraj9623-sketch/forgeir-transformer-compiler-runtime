@@ -1,0 +1,15 @@
+{
+  "configuration": {
+    "batch_size": 2,
+    "dtype": "float32",
+    "epsilon": 1e-05,
+    "hidden_size": 128,
+    "intermediate_size": 384,
+    "num_heads": 4,
+    "seed": 42,
+    "sequence_length": 32,
+    "vocabulary_size": 256
+  },
+  "schema_version": 1,
+  "semantic_name": "forgeir.reference.tiny_transformer_config"
+}

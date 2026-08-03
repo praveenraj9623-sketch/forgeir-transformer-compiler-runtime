@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import io
 import json
+import zipfile
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -97,9 +99,18 @@ def _write_json(path: Path, document: object) -> None:
     path.write_text(json.dumps(document, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def _write_npz(path: Path, tensors: Mapping[str, Array]) -> None:
-    savez = cast(Callable[..., None], cast(Any, np.savez))
-    savez(path, **dict(tensors))
+def write_deterministic_npz(path: Path, tensors: Mapping[str, Array]) -> None:
+    """Write an NPZ archive with stable member order and fixed ZIP metadata."""
+    with zipfile.ZipFile(path, mode="w", compression=zipfile.ZIP_STORED) as archive:
+        for name, array in tensors.items():
+            member = io.BytesIO()
+            write_array = cast(Callable[..., None], cast(Any, np.lib.format.write_array))
+            write_array(member, np.ascontiguousarray(array), allow_pickle=False)
+            information = zipfile.ZipInfo(f"{name}.npy", date_time=(1980, 1, 1, 0, 0, 0))
+            information.compress_type = zipfile.ZIP_STORED
+            information.create_system = 3
+            information.external_attr = 0o600 << 16
+            archive.writestr(information, member.getvalue())
 
 
 def _metadata(
@@ -152,8 +163,8 @@ def generate_reference_artifacts(
     output_array = _tensor_to_numpy(expected_output)
     input_tensors: dict[str, Array] = {"input_ids": input_array}
     output_tensors: dict[str, Array] = {"hidden_states": output_array}
-    _write_npz(paths.input_tensor, input_tensors)
-    _write_npz(paths.expected_output, output_tensors)
+    write_deterministic_npz(paths.input_tensor, input_tensors)
+    write_deterministic_npz(paths.expected_output, output_tensors)
 
     metadata_entries = [
         _metadata(
@@ -183,7 +194,7 @@ def generate_reference_artifacts(
                 array=weight_array,
             )
         )
-    _write_npz(paths.weight_tensors, weight_tensors)
+    write_deterministic_npz(paths.weight_tensors, weight_tensors)
 
     _write_json(
         paths.tensor_metadata,

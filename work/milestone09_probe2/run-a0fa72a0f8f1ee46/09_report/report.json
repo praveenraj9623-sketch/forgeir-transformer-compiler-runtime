@@ -1,0 +1,51 @@
+{
+  "configuration_hash": "a0fa72a0f8f1ee4687dddd5d6dd2a0aeb5e6f8e2a96580e8b8fe51f00cae807c",
+  "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+  "graph_summary": {
+    "estimated_parameter_bytes": 656384,
+    "input_count": 1,
+    "operation_count": 35,
+    "operation_histogram": {
+      "Add": 2,
+      "CausalMask": 1,
+      "Constant": 1,
+      "GELU": 1,
+      "Input": 1,
+      "Linear": 6,
+      "MatMul": 2,
+      "Mul": 1,
+      "Parameter": 8,
+      "RMSNorm": 2,
+      "Reshape": 4,
+      "Softmax": 1,
+      "Transpose": 5
+    },
+    "output_count": 1,
+    "schema_version": "1.0",
+    "value_count": 35
+  },
+  "memory_summary": {
+    "arena_size_bytes": 262144,
+    "naive_allocation_bytes": 950272,
+    "peak_live_bytes": 229376,
+    "planned_bytes": 262144,
+    "reuse_fraction": 0.7241379310344828,
+    "reuse_ratio": 3.625
+  },
+  "numerical_comparison": {
+    "absolute_tolerance": 2e-06,
+    "comparison_schema_version": "1.0",
+    "finite_value_count": 8192,
+    "max_absolute_error": 5.662441253662109e-07,
+    "max_relative_error": 0.0023864314425736666,
+    "nonfinite_classification_match": true,
+    "output_id": "v0034",
+    "passed": true,
+    "relative_tolerance": 2e-05,
+    "violation_count": 0
+  },
+  "report_schema_version": "1.0",
+  "run_id": "run-a0fa72a0f8f1ee46",
+  "seed": 42,
+  "success": true
+}

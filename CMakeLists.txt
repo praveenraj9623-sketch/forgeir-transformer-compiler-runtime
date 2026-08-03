@@ -15,13 +15,18 @@ option(FORGEIR_ENABLE_CUDA "Compile the optional CUDA integration" OFF)
 option(FORGEIR_ENABLE_HIP "Compile the optional HIP integration" OFF)
 option(FORGEIR_ENABLE_MLIR "Compile the optional MLIR integration" OFF)
 
-foreach(feature IN ITEMS CUDA HIP MLIR)
+foreach(feature IN ITEMS CUDA HIP)
     if(FORGEIR_ENABLE_${feature})
         message(FATAL_ERROR
             "FORGEIR_ENABLE_${feature}=ON is unsupported in Milestone 1; "
             "the ${feature} integration has not been implemented.")
     endif()
 endforeach()
+
+set(FORGEIR_MLIR_COMPILED 0)
+if(FORGEIR_ENABLE_MLIR)
+    set(FORGEIR_MLIR_COMPILED 1)
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(ForgeIRDependencies)
@@ -79,7 +84,16 @@ add_library(forgeir_core STATIC
     cpp/src/passes/semantic_verifier.cpp
     cpp/src/passes/shape_inference_pass.cpp
     cpp/src/passes/verification.cpp
+    cpp/src/runtime/benchmark.cpp
+    cpp/src/runtime/execution_schedule.cpp
+    cpp/src/runtime/cpu_backend.cpp
+    cpp/src/runtime/memory_planner.cpp
+    cpp/src/runtime/runtime_session.cpp
+    cpp/src/runtime/tensor_storage.cpp
 )
+if(FORGEIR_ENABLE_MLIR)
+    target_sources(forgeir_core PRIVATE cpp/src/mlir/stablehlo_lowering.cpp)
+endif()
 add_library(ForgeIR::core ALIAS forgeir_core)
 target_include_directories(forgeir_core
     PUBLIC
@@ -102,10 +116,16 @@ include(CTest)
 if(BUILD_TESTING)
     add_executable(forgeir_tests
         tests/cpp/core_smoke_test.cpp
+        tests/cpp/benchmark_test.cpp
+        tests/cpp/cpu_backend_test.cpp
         tests/cpp/graph_loader_test.cpp
+        tests/cpp/memory_planner_test.cpp
         tests/cpp/optimization_pass_test.cpp
         tests/cpp/pass_manager_test.cpp
     )
+    if(FORGEIR_ENABLE_MLIR)
+        target_sources(forgeir_tests PRIVATE tests/cpp/mlir_bridge_test.cpp)
+    endif()
     target_link_libraries(forgeir_tests
         PRIVATE
             ForgeIR::core
@@ -159,6 +179,16 @@ if(BUILD_TESTING)
     )
 
     add_test(
+        NAME forgeir_cli_plan_memory
+        COMMAND forgeir_cli plan-memory
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+            --output-dir "${CMAKE_CURRENT_BINARY_DIR}/memory_plan_cli_test"
+    )
+    set_tests_properties(forgeir_cli_plan_memory PROPERTIES
+        PASS_REGULAR_EXPRESSION "\"planned_bytes\""
+    )
+
+    add_test(
         NAME forgeir_python_binding
         COMMAND "${Python_EXECUTABLE}"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/python/ctest_binding_smoke.py"
@@ -166,4 +196,26 @@ if(BUILD_TESTING)
             "${CMAKE_CURRENT_SOURCE_DIR}/python"
             "${PROJECT_VERSION}"
     )
+
+    if(FORGEIR_ENABLE_MLIR)
+        add_test(
+            NAME forgeir_cli_emit_mlir
+            COMMAND forgeir_cli emit-mlir
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+                --output "${CMAKE_CURRENT_BINARY_DIR}/milestone_04_valid_graph.mlir"
+        )
+        set_tests_properties(forgeir_cli_emit_mlir PROPERTIES
+            PASS_REGULAR_EXPRESSION "\"external_validation\""
+        )
+    else()
+        add_test(
+            NAME forgeir_cli_emit_mlir_disabled
+            COMMAND forgeir_cli emit-mlir
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+                --output "${CMAKE_CURRENT_BINARY_DIR}/disabled.mlir"
+        )
+        set_tests_properties(forgeir_cli_emit_mlir_disabled PROPERTIES
+            WILL_FAIL TRUE
+        )
+    endif()
 endif()

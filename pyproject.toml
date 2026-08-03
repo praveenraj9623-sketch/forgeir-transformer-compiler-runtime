@@ -12,8 +12,12 @@ license = { file = "LICENSE" }
 authors = [{ name = "Praveen Raj A" }]
 dependencies = [
     "numpy>=2.0",
+    "rich>=13.0",
     "torch>=2.0",
 ]
+
+[project.scripts]
+forgeir = "forgeir.cli:main"
 
 [tool.setuptools]
 package-dir = { "" = "python" }

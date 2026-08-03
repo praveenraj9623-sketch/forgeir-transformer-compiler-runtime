@@ -1,0 +1,430 @@
+{
+  "configuration_hash": "a0fa72a0f8f1ee4687dddd5d6dd2a0aeb5e6f8e2a96580e8b8fe51f00cae807c",
+  "diagnostics": [],
+  "failure_stage": null,
+  "pipeline_schema_version": "1.0",
+  "run_id": "run-a0fa72a0f8f1ee46",
+  "stages": [
+    {
+      "artifacts": [
+        {
+          "path": "01_generate_reference/configuration.json",
+          "sha256": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+          "size_bytes": 342
+        },
+        {
+          "path": "01_generate_reference/expected_output.npz",
+          "sha256": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+          "size_bytes": 33028
+        },
+        {
+          "path": "01_generate_reference/input_tensor.npz",
+          "sha256": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+          "size_bytes": 764
+        },
+        {
+          "path": "01_generate_reference/manifest.sha256",
+          "sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+          "size_bytes": 431
+        },
+        {
+          "path": "01_generate_reference/tensor_metadata.json",
+          "sha256": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+          "size_bytes": 3943
+        },
+        {
+          "path": "01_generate_reference/weight_tensors.npz",
+          "sha256": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+          "size_bytes": 789954
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "c3709639b2a80640119c4e62343f140a47d611caf9771b4ae6b9873b2f673b4e"
+      },
+      "stage": "generate-reference",
+      "status": "succeeded",
+      "summary": {
+        "seed": 42
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "02_export/tiny_transformer_block.dot",
+          "sha256": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+          "size_bytes": 4276
+        },
+        {
+          "path": "02_export/tiny_transformer_block.graph.json",
+          "sha256": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+          "size_bytes": 11792
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "ad1cbe5ae9a5facaa5123718a25dfbc8a168a18a8026d8f9019fe2eaf15ba1e2"
+      },
+      "stage": "export",
+      "status": "succeeded",
+      "summary": {
+        "graph_hash": "363fb53558b481a2a302009bc22696d503fb58a61a483ec28580bf580861979c",
+        "operation_counts": {
+          "Add": 2,
+          "CausalMask": 1,
+          "Constant": 1,
+          "GELU": 1,
+          "Input": 1,
+          "Linear": 6,
+          "MatMul": 2,
+          "Mul": 1,
+          "Parameter": 8,
+          "RMSNorm": 2,
+          "Reshape": 4,
+          "Softmax": 1,
+          "Transpose": 5
+        }
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "03_inspect/graph_summary.json",
+          "sha256": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+          "size_bytes": 437
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "2df2b749a8b9d2811f845dda5cdf3489934ebcf5c3a86a7a48e24c018962c384"
+      },
+      "stage": "inspect",
+      "status": "succeeded",
+      "summary": {
+        "estimated_parameter_bytes": 656384,
+        "input_count": 1,
+        "operation_count": 35,
+        "operation_histogram": {
+          "Add": 2,
+          "CausalMask": 1,
+          "Constant": 1,
+          "GELU": 1,
+          "Input": 1,
+          "Linear": 6,
+          "MatMul": 2,
+          "Mul": 1,
+          "Parameter": 8,
+          "RMSNorm": 2,
+          "Reshape": 4,
+          "Softmax": 1,
+          "Transpose": 5
+        },
+        "output_count": 1,
+        "schema_version": "1.0",
+        "value_count": 35
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "04_verify/verification_report.json",
+          "sha256": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+          "size_bytes": 2325
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "8601fc39ca6f36c3c47dee0330117b0478813d77fe6ec02dd6780c61467b7784"
+      },
+      "stage": "verify",
+      "status": "succeeded",
+      "summary": {
+        "verified": true
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "05_optimize/tiny_transformer_block.graph.after.dot",
+          "sha256": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+          "size_bytes": 2854
+        },
+        {
+          "path": "05_optimize/tiny_transformer_block.graph.before.dot",
+          "sha256": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+          "size_bytes": 2854
+        },
+        {
+          "path": "05_optimize/tiny_transformer_block.graph.json",
+          "sha256": "c55855645a85b19bb722578219ec4ad887b00b5fccb6151c0cfb5f568fa326d9",
+          "size_bytes": 11788
+        },
+        {
+          "path": "05_optimize/tiny_transformer_block.graph.pass_report.json",
+          "sha256": "151a76e77918d6216b33624e02c20c0457e03fcff80190e582f7307aab42176d",
+          "size_bytes": 6508
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "04_verify/verification_report.json": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "286834a4a32b2d0d7024bd6500a43fcaffd3c17a03b59252d8024829e5a14088"
+      },
+      "stage": "optimize",
+      "status": "succeeded",
+      "summary": {
+        "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+        "operation_counts": {
+          "after": 35,
+          "before": 35,
+          "change": 0
+        },
+        "optimization_level": "O2"
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "06_plan_memory/memory_plan.json",
+          "sha256": "2b7ff2548e79593a7d086fdd4ccc0ad90e49dde05de5e7c2433bd720e9fda9bb",
+          "size_bytes": 18955
+        },
+        {
+          "path": "06_plan_memory/schedule.json",
+          "sha256": "b1ef22e9f83bd4660b204bb121ab91df9ac6e1463785428b90fe0f40c737ac8b",
+          "size_bytes": 8269
+        },
+        {
+          "path": "06_plan_memory/timeline.csv",
+          "sha256": "15c630500bbdcfe993fe2835d245c263a5c7ebda8d6ffa25d1a9b9154289f23c",
+          "size_bytes": 4395
+        },
+        {
+          "path": "06_plan_memory/timeline.svg",
+          "sha256": "88aee7c86284e3647a7427f0d31e5e36114d956d6e17664109f1ed4ee33cc2c8",
+          "size_bytes": 12085
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "04_verify/verification_report.json": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+        "05_optimize/tiny_transformer_block.graph.after.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.before.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.json": "c55855645a85b19bb722578219ec4ad887b00b5fccb6151c0cfb5f568fa326d9",
+        "05_optimize/tiny_transformer_block.graph.pass_report.json": "151a76e77918d6216b33624e02c20c0457e03fcff80190e582f7307aab42176d",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "ebeebe37cc9e4c64906fc1f28bb1b98cb5849feeca4674b55eb909865ead278f"
+      },
+      "stage": "plan-memory",
+      "status": "succeeded",
+      "summary": {
+        "alignment_bytes": 64,
+        "naive_allocation_bytes": 950272,
+        "planned_bytes": 262144
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "07_run/execution_trace.json",
+          "sha256": "4f2b426eea69bf5f11a7d3eaaf05f8002db88ef5ad1a9d42b23994d38b991da6",
+          "size_bytes": 7991
+        },
+        {
+          "path": "07_run/runtime_input.npz",
+          "sha256": "e3425517639347f92e48b5c22159d6860c340b9350f99a85cd7a40ff27059fae",
+          "size_bytes": 33012
+        },
+        {
+          "path": "07_run/runtime_output.npz",
+          "sha256": "03e52ae60098ca3093957bcede3802f7b31be38d9e14c13bc650f324f3e56c83",
+          "size_bytes": 33012
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "04_verify/verification_report.json": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+        "05_optimize/tiny_transformer_block.graph.after.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.before.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.json": "c55855645a85b19bb722578219ec4ad887b00b5fccb6151c0cfb5f568fa326d9",
+        "05_optimize/tiny_transformer_block.graph.pass_report.json": "151a76e77918d6216b33624e02c20c0457e03fcff80190e582f7307aab42176d",
+        "06_plan_memory/memory_plan.json": "2b7ff2548e79593a7d086fdd4ccc0ad90e49dde05de5e7c2433bd720e9fda9bb",
+        "06_plan_memory/schedule.json": "b1ef22e9f83bd4660b204bb121ab91df9ac6e1463785428b90fe0f40c737ac8b",
+        "06_plan_memory/timeline.csv": "15c630500bbdcfe993fe2835d245c263a5c7ebda8d6ffa25d1a9b9154289f23c",
+        "06_plan_memory/timeline.svg": "88aee7c86284e3647a7427f0d31e5e36114d956d6e17664109f1ed4ee33cc2c8",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "6de183452a7d30d2102699f1a5c5f31395101238d433260667c734edd8141fe2"
+      },
+      "stage": "run",
+      "status": "succeeded",
+      "summary": {
+        "operation_count": 35,
+        "output_ids": [
+          "v0034"
+        ]
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "08_compare/comparison.json",
+          "sha256": "132b8074be7003c53c4c6f32b722c2778e9738e53187f74f6c8adf830ecdd551",
+          "size_bytes": 347
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "04_verify/verification_report.json": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+        "05_optimize/tiny_transformer_block.graph.after.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.before.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.json": "c55855645a85b19bb722578219ec4ad887b00b5fccb6151c0cfb5f568fa326d9",
+        "05_optimize/tiny_transformer_block.graph.pass_report.json": "151a76e77918d6216b33624e02c20c0457e03fcff80190e582f7307aab42176d",
+        "06_plan_memory/memory_plan.json": "2b7ff2548e79593a7d086fdd4ccc0ad90e49dde05de5e7c2433bd720e9fda9bb",
+        "06_plan_memory/schedule.json": "b1ef22e9f83bd4660b204bb121ab91df9ac6e1463785428b90fe0f40c737ac8b",
+        "06_plan_memory/timeline.csv": "15c630500bbdcfe993fe2835d245c263a5c7ebda8d6ffa25d1a9b9154289f23c",
+        "06_plan_memory/timeline.svg": "88aee7c86284e3647a7427f0d31e5e36114d956d6e17664109f1ed4ee33cc2c8",
+        "07_run/execution_trace.json": "4f2b426eea69bf5f11a7d3eaaf05f8002db88ef5ad1a9d42b23994d38b991da6",
+        "07_run/runtime_input.npz": "e3425517639347f92e48b5c22159d6860c340b9350f99a85cd7a40ff27059fae",
+        "07_run/runtime_output.npz": "03e52ae60098ca3093957bcede3802f7b31be38d9e14c13bc650f324f3e56c83",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "d4fdf966eaa4cc906e87d2b20b861a98764b6008b34091432c8aac624374e123"
+      },
+      "stage": "compare",
+      "status": "succeeded",
+      "summary": {
+        "absolute_tolerance": 2e-06,
+        "comparison_schema_version": "1.0",
+        "finite_value_count": 8192,
+        "max_absolute_error": 5.662441253662109e-07,
+        "max_relative_error": 0.0023864314425736666,
+        "nonfinite_classification_match": true,
+        "output_id": "v0034",
+        "passed": true,
+        "relative_tolerance": 2e-05,
+        "violation_count": 0
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "path": "09_report/report.json",
+          "sha256": "bb653c5b394c154fc87546aebbd5de189df48d0e9311b0289d86f4b085816e0a",
+          "size_bytes": 1419
+        },
+        {
+          "path": "09_report/report.md",
+          "sha256": "60e9f9e5a8bbcb480fce1e231b27767f48d46294a2b9f8e5d93122afd4a207b7",
+          "size_bytes": 403
+        }
+      ],
+      "diagnostics": [],
+      "input_hashes": {
+        "01_generate_reference/configuration.json": "e3f94ffe8a79a93010bd5132aed61c8ed8e0e789e9db14beb8bbf7ec0f109412",
+        "01_generate_reference/expected_output.npz": "a24f2f4750c644549736d4f074223eed8a1ee1eadc625ed7ac1c7c11e9f5294b",
+        "01_generate_reference/input_tensor.npz": "222eaac93a1501ad8eb315b83cbb33099537b69bc55f456293eaf759138087fc",
+        "01_generate_reference/manifest.sha256": "883788f44dde5c0a857b111aeb99ca55fe7a610fb3cf73aba74a13d32ad9762d",
+        "01_generate_reference/tensor_metadata.json": "c0c63ff6e1f72c785165804fea4cdaa61f429d7e4c5fdf4276b10db43fecef23",
+        "01_generate_reference/weight_tensors.npz": "4bef5573d0cd33a2b50c5ccb72c1be74906da50dafbe4ab6a9edb3ffd0dfe777",
+        "02_export/tiny_transformer_block.dot": "a07cbec05ba2091069c1f30647943e742a4979f63ec41d37618feb9fcc52943d",
+        "02_export/tiny_transformer_block.graph.json": "65679563991b61a285750d1e25a2c14ca6d19a4f789d286c0c56a0c37127136e",
+        "03_inspect/graph_summary.json": "c8112266bc70785e325d3fbe9f32bde12b2bb26dfad6796610b443e7f2938cbf",
+        "04_verify/verification_report.json": "07a25eb77ee01061173b8b69c53d676a82b2a942598949bedfc184516edffd9b",
+        "05_optimize/tiny_transformer_block.graph.after.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.before.dot": "227112e11d2d170210e0cd60941ca6e96989dadbded9d318db85ee292288b477",
+        "05_optimize/tiny_transformer_block.graph.json": "c55855645a85b19bb722578219ec4ad887b00b5fccb6151c0cfb5f568fa326d9",
+        "05_optimize/tiny_transformer_block.graph.pass_report.json": "151a76e77918d6216b33624e02c20c0457e03fcff80190e582f7307aab42176d",
+        "06_plan_memory/memory_plan.json": "2b7ff2548e79593a7d086fdd4ccc0ad90e49dde05de5e7c2433bd720e9fda9bb",
+        "06_plan_memory/schedule.json": "b1ef22e9f83bd4660b204bb121ab91df9ac6e1463785428b90fe0f40c737ac8b",
+        "06_plan_memory/timeline.csv": "15c630500bbdcfe993fe2835d245c263a5c7ebda8d6ffa25d1a9b9154289f23c",
+        "06_plan_memory/timeline.svg": "88aee7c86284e3647a7427f0d31e5e36114d956d6e17664109f1ed4ee33cc2c8",
+        "07_run/execution_trace.json": "4f2b426eea69bf5f11a7d3eaaf05f8002db88ef5ad1a9d42b23994d38b991da6",
+        "07_run/runtime_input.npz": "e3425517639347f92e48b5c22159d6860c340b9350f99a85cd7a40ff27059fae",
+        "07_run/runtime_output.npz": "03e52ae60098ca3093957bcede3802f7b31be38d9e14c13bc650f324f3e56c83",
+        "08_compare/comparison.json": "132b8074be7003c53c4c6f32b722c2778e9738e53187f74f6c8adf830ecdd551",
+        "input/normalized_config.json": "0496b476659fab886fa149e2d67e5dcd3d7ef74b8c583243307fefcd0f8a003c",
+        "input/source_config.json": "4f22ee586f0cf4cf8f9cb37fb160db2cb973edb5c2e8836e9dfd361e43611134",
+        "status.json": "c2602dfd8f52a640558b0bfd9e3612ddacf999a1511c12d7577f53564f740561"
+      },
+      "stage": "report",
+      "status": "succeeded",
+      "summary": {
+        "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+        "max_absolute_error": 5.662441253662109e-07,
+        "max_relative_error": 0.0023864314425736666
+      }
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,100 @@
+{
+  "changed": false,
+  "diagnostic_counts": {
+    "error": 0,
+    "warning": 0
+  },
+  "diagnostics": [],
+  "graph_hash": "363fb53558b481a2a302009bc22696d503fb58a61a483ec28580bf580861979c",
+  "graph_schema_version": "1.0",
+  "pass_executions": [
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "ShapeInferencePass",
+      "stage": "pre_verification",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "ShapeInferencePass",
+      "stage": "pass",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "ShapeInferencePass",
+      "stage": "post_verification",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "DTypePropagationPass",
+      "stage": "pre_verification",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "DTypePropagationPass",
+      "stage": "pass",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "DTypePropagationPass",
+      "stage": "post_verification",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "GraphVerifierPass",
+      "stage": "pre_verification",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "GraphVerifierPass",
+      "stage": "pass",
+      "success": true
+    },
+    {
+      "changed": false,
+      "diagnostic_count": 0,
+      "nodes_added": 0,
+      "nodes_removed": 0,
+      "pass": "GraphVerifierPass",
+      "stage": "post_verification",
+      "success": true
+    }
+  ],
+  "report_schema_version": "1.0",
+  "rewrites": [],
+  "status": {
+    "code": 0,
+    "message": ""
+  },
+  "success": true
+}

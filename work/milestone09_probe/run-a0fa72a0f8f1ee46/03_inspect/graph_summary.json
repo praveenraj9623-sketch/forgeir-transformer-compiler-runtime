@@ -1,0 +1,23 @@
+{
+  "estimated_parameter_bytes": 656384,
+  "input_count": 1,
+  "operation_count": 35,
+  "operation_histogram": {
+    "Add": 2,
+    "CausalMask": 1,
+    "Constant": 1,
+    "GELU": 1,
+    "Input": 1,
+    "Linear": 6,
+    "MatMul": 2,
+    "Mul": 1,
+    "Parameter": 8,
+    "RMSNorm": 2,
+    "Reshape": 4,
+    "Softmax": 1,
+    "Transpose": 5
+  },
+  "output_count": 1,
+  "schema_version": "1.0",
+  "value_count": 35
+}

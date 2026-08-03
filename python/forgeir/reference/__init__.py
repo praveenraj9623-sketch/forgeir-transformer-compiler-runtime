@@ -5,6 +5,7 @@ from forgeir.reference.artifacts import (
     array_content_sha256,
     generate_reference_artifacts,
     verify_manifest,
+    write_deterministic_npz,
 )
 from forgeir.reference.config import TinyTransformerConfig
 from forgeir.reference.evaluator import evaluate_graph
@@ -30,4 +31,5 @@ __all__ = [
     "evaluate_graph",
     "generate_reference_artifacts",
     "verify_manifest",
+    "write_deterministic_npz",
 ]

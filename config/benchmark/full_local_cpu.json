@@ -1,0 +1,28 @@
+{
+  "absolute_tolerance": 2e-06,
+  "benchmark_schema_version": "1.0",
+  "gross_failure_max_iteration_seconds": 60.0,
+  "measured_iteration_count": 20,
+  "model": {
+    "batch_size": 2,
+    "dtype": "float32",
+    "epsilon": 1e-05,
+    "hidden_size": 128,
+    "intermediate_size": 384,
+    "num_heads": 4,
+    "seed": 42,
+    "sequence_length": 32,
+    "vocabulary_size": 256
+  },
+  "name": "full_local_cpu",
+  "optimization_levels": [
+    "O0",
+    "O1",
+    "O2"
+  ],
+  "process_count": 1,
+  "pytorch_operation_profile_iterations": 20,
+  "relative_tolerance": 2e-05,
+  "torch_num_threads": 1,
+  "warmup_count": 5
+}

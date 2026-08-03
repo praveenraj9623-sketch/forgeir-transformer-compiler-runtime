@@ -1,0 +1,420 @@
+{
+  "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+  "operation_count": 35,
+  "operations": [
+    {
+      "index": 0,
+      "inputs": [],
+      "operation_id": "op0000",
+      "outputs": [
+        "v0000"
+      ],
+      "semantic_name": "block.input",
+      "type": "Input"
+    },
+    {
+      "index": 1,
+      "inputs": [],
+      "operation_id": "op0001",
+      "outputs": [
+        "v0001"
+      ],
+      "semantic_name": "model.parameter.block.attention_norm.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 2,
+      "inputs": [
+        "v0000",
+        "v0001"
+      ],
+      "operation_id": "op0002",
+      "outputs": [
+        "v0002"
+      ],
+      "semantic_name": "block.attention_norm",
+      "type": "RMSNorm"
+    },
+    {
+      "index": 3,
+      "inputs": [],
+      "operation_id": "op0003",
+      "outputs": [
+        "v0003"
+      ],
+      "semantic_name": "model.parameter.block.attention.query_projection.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 4,
+      "inputs": [
+        "v0002",
+        "v0003"
+      ],
+      "operation_id": "op0004",
+      "outputs": [
+        "v0004"
+      ],
+      "semantic_name": "block.attention.query_projection",
+      "type": "Linear"
+    },
+    {
+      "index": 5,
+      "inputs": [
+        "v0004"
+      ],
+      "operation_id": "op0005",
+      "outputs": [
+        "v0005"
+      ],
+      "semantic_name": "block.attention.query.reshape",
+      "type": "Reshape"
+    },
+    {
+      "index": 6,
+      "inputs": [
+        "v0005"
+      ],
+      "operation_id": "op0006",
+      "outputs": [
+        "v0006"
+      ],
+      "semantic_name": "block.attention.query.transpose",
+      "type": "Transpose"
+    },
+    {
+      "index": 7,
+      "inputs": [],
+      "operation_id": "op0007",
+      "outputs": [
+        "v0007"
+      ],
+      "semantic_name": "model.parameter.block.attention.key_projection.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 8,
+      "inputs": [
+        "v0002",
+        "v0007"
+      ],
+      "operation_id": "op0008",
+      "outputs": [
+        "v0008"
+      ],
+      "semantic_name": "block.attention.key_projection",
+      "type": "Linear"
+    },
+    {
+      "index": 9,
+      "inputs": [
+        "v0008"
+      ],
+      "operation_id": "op0009",
+      "outputs": [
+        "v0009"
+      ],
+      "semantic_name": "block.attention.key.reshape",
+      "type": "Reshape"
+    },
+    {
+      "index": 10,
+      "inputs": [
+        "v0009"
+      ],
+      "operation_id": "op0010",
+      "outputs": [
+        "v0010"
+      ],
+      "semantic_name": "block.attention.key.transpose_heads",
+      "type": "Transpose"
+    },
+    {
+      "index": 11,
+      "inputs": [
+        "v0010"
+      ],
+      "operation_id": "op0011",
+      "outputs": [
+        "v0011"
+      ],
+      "semantic_name": "block.attention.key.transpose_scores",
+      "type": "Transpose"
+    },
+    {
+      "index": 12,
+      "inputs": [],
+      "operation_id": "op0012",
+      "outputs": [
+        "v0012"
+      ],
+      "semantic_name": "model.parameter.block.attention.value_projection.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 13,
+      "inputs": [
+        "v0002",
+        "v0012"
+      ],
+      "operation_id": "op0013",
+      "outputs": [
+        "v0013"
+      ],
+      "semantic_name": "block.attention.value_projection",
+      "type": "Linear"
+    },
+    {
+      "index": 14,
+      "inputs": [
+        "v0013"
+      ],
+      "operation_id": "op0014",
+      "outputs": [
+        "v0014"
+      ],
+      "semantic_name": "block.attention.value.reshape",
+      "type": "Reshape"
+    },
+    {
+      "index": 15,
+      "inputs": [
+        "v0014"
+      ],
+      "operation_id": "op0015",
+      "outputs": [
+        "v0015"
+      ],
+      "semantic_name": "block.attention.value.transpose",
+      "type": "Transpose"
+    },
+    {
+      "index": 16,
+      "inputs": [
+        "v0006",
+        "v0011"
+      ],
+      "operation_id": "op0016",
+      "outputs": [
+        "v0016"
+      ],
+      "semantic_name": "block.attention.scores.matmul",
+      "type": "MatMul"
+    },
+    {
+      "index": 17,
+      "inputs": [],
+      "operation_id": "op0017",
+      "outputs": [
+        "v0017"
+      ],
+      "semantic_name": "block.attention.scores.scale",
+      "type": "Constant"
+    },
+    {
+      "index": 18,
+      "inputs": [
+        "v0016",
+        "v0017"
+      ],
+      "operation_id": "op0018",
+      "outputs": [
+        "v0018"
+      ],
+      "semantic_name": "block.attention.scores.scale_mul",
+      "type": "Mul"
+    },
+    {
+      "index": 19,
+      "inputs": [
+        "v0018"
+      ],
+      "operation_id": "op0019",
+      "outputs": [
+        "v0019"
+      ],
+      "semantic_name": "block.attention.causal_mask",
+      "type": "CausalMask"
+    },
+    {
+      "index": 20,
+      "inputs": [
+        "v0019"
+      ],
+      "operation_id": "op0020",
+      "outputs": [
+        "v0020"
+      ],
+      "semantic_name": "block.attention.softmax",
+      "type": "Softmax"
+    },
+    {
+      "index": 21,
+      "inputs": [
+        "v0020",
+        "v0015"
+      ],
+      "operation_id": "op0021",
+      "outputs": [
+        "v0021"
+      ],
+      "semantic_name": "block.attention.context.matmul",
+      "type": "MatMul"
+    },
+    {
+      "index": 22,
+      "inputs": [
+        "v0021"
+      ],
+      "operation_id": "op0022",
+      "outputs": [
+        "v0022"
+      ],
+      "semantic_name": "block.attention.context.transpose",
+      "type": "Transpose"
+    },
+    {
+      "index": 23,
+      "inputs": [
+        "v0022"
+      ],
+      "operation_id": "op0023",
+      "outputs": [
+        "v0023"
+      ],
+      "semantic_name": "block.attention.context.reshape",
+      "type": "Reshape"
+    },
+    {
+      "index": 24,
+      "inputs": [],
+      "operation_id": "op0024",
+      "outputs": [
+        "v0024"
+      ],
+      "semantic_name": "model.parameter.block.attention.output_projection.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 25,
+      "inputs": [
+        "v0023",
+        "v0024"
+      ],
+      "operation_id": "op0025",
+      "outputs": [
+        "v0025"
+      ],
+      "semantic_name": "block.attention.output_projection",
+      "type": "Linear"
+    },
+    {
+      "index": 26,
+      "inputs": [
+        "v0000",
+        "v0025"
+      ],
+      "operation_id": "op0026",
+      "outputs": [
+        "v0026"
+      ],
+      "semantic_name": "block.add",
+      "type": "Add"
+    },
+    {
+      "index": 27,
+      "inputs": [],
+      "operation_id": "op0027",
+      "outputs": [
+        "v0027"
+      ],
+      "semantic_name": "model.parameter.block.mlp_norm.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 28,
+      "inputs": [
+        "v0026",
+        "v0027"
+      ],
+      "operation_id": "op0028",
+      "outputs": [
+        "v0028"
+      ],
+      "semantic_name": "block.mlp_norm",
+      "type": "RMSNorm"
+    },
+    {
+      "index": 29,
+      "inputs": [],
+      "operation_id": "op0029",
+      "outputs": [
+        "v0029"
+      ],
+      "semantic_name": "model.parameter.block.mlp.0.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 30,
+      "inputs": [
+        "v0028",
+        "v0029"
+      ],
+      "operation_id": "op0030",
+      "outputs": [
+        "v0030"
+      ],
+      "semantic_name": "block.mlp.0",
+      "type": "Linear"
+    },
+    {
+      "index": 31,
+      "inputs": [
+        "v0030"
+      ],
+      "operation_id": "op0031",
+      "outputs": [
+        "v0031"
+      ],
+      "semantic_name": "block.mlp.1",
+      "type": "GELU"
+    },
+    {
+      "index": 32,
+      "inputs": [],
+      "operation_id": "op0032",
+      "outputs": [
+        "v0032"
+      ],
+      "semantic_name": "model.parameter.block.mlp.2.weight",
+      "type": "Parameter"
+    },
+    {
+      "index": 33,
+      "inputs": [
+        "v0031",
+        "v0032"
+      ],
+      "operation_id": "op0033",
+      "outputs": [
+        "v0033"
+      ],
+      "semantic_name": "block.mlp.2",
+      "type": "Linear"
+    },
+    {
+      "index": 34,
+      "inputs": [
+        "v0026",
+        "v0033"
+      ],
+      "operation_id": "op0034",
+      "outputs": [
+        "v0034"
+      ],
+      "semantic_name": "block.add_1",
+      "type": "Add"
+    }
+  ],
+  "schedule_schema_version": "1.0"
+}

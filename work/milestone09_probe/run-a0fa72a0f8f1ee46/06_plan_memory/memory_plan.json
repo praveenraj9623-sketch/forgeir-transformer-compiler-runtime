@@ -1,0 +1,717 @@
+{
+  "alignment_bytes": 64,
+  "backend": "cpu",
+  "graph_hash": "681b7009cef039c59515650e69d1b520f96f2c8faeadeca1df114f7800f7494d",
+  "memory_plan_schema_version": "1.0",
+  "schedule_operation_count": 35,
+  "summary": {
+    "arena_size_bytes": 262144,
+    "naive_allocation_bytes": 950272,
+    "peak_live_bytes": 229376,
+    "planned_bytes": 262144,
+    "reuse_fraction": 0.7241379310344828,
+    "reuse_ratio": 3.625
+  },
+  "tensors": [
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 32768,
+      "definition_index": 0,
+      "external": true,
+      "final_use_index": 26,
+      "first_use_index": 2,
+      "immutable": false,
+      "kind": "input",
+      "lifetime_interval": {
+        "end": 26,
+        "start": 0
+      },
+      "protected": true,
+      "semantic_name": "block.input.hidden_states",
+      "storage_class": "external_input",
+      "value_id": "v0000"
+    },
+    {
+      "aligned_byte_size": 512,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 512,
+      "definition_index": 1,
+      "external": true,
+      "final_use_index": 2,
+      "first_use_index": 2,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 2,
+        "start": 1
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.attention_norm.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0001"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 2,
+      "external": false,
+      "final_use_index": 13,
+      "first_use_index": 4,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 13,
+        "start": 2
+      },
+      "protected": false,
+      "semantic_name": "block.attention_norm.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0002"
+    },
+    {
+      "aligned_byte_size": 65536,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 65536,
+      "definition_index": 3,
+      "external": true,
+      "final_use_index": 4,
+      "first_use_index": 4,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 4,
+        "start": 3
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.attention.query_projection.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0003"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 4,
+      "external": false,
+      "final_use_index": 5,
+      "first_use_index": 5,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 5,
+        "start": 4
+      },
+      "protected": false,
+      "semantic_name": "block.attention.query_projection.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0004"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 65536,
+      "byte_size": 32768,
+      "definition_index": 5,
+      "external": false,
+      "final_use_index": 6,
+      "first_use_index": 6,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 6,
+        "start": 5
+      },
+      "protected": false,
+      "semantic_name": "block.attention.query.reshape.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0005"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 6,
+      "external": false,
+      "final_use_index": 16,
+      "first_use_index": 16,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 16,
+        "start": 6
+      },
+      "protected": false,
+      "semantic_name": "block.attention.query.transpose.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0006"
+    },
+    {
+      "aligned_byte_size": 65536,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 65536,
+      "definition_index": 7,
+      "external": true,
+      "final_use_index": 8,
+      "first_use_index": 8,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 8,
+        "start": 7
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.attention.key_projection.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0007"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 65536,
+      "byte_size": 32768,
+      "definition_index": 8,
+      "external": false,
+      "final_use_index": 9,
+      "first_use_index": 9,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 9,
+        "start": 8
+      },
+      "protected": false,
+      "semantic_name": "block.attention.key_projection.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0008"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 98304,
+      "byte_size": 32768,
+      "definition_index": 9,
+      "external": false,
+      "final_use_index": 10,
+      "first_use_index": 10,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 10,
+        "start": 9
+      },
+      "protected": false,
+      "semantic_name": "block.attention.key.reshape.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0009"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 65536,
+      "byte_size": 32768,
+      "definition_index": 10,
+      "external": false,
+      "final_use_index": 11,
+      "first_use_index": 11,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 11,
+        "start": 10
+      },
+      "protected": false,
+      "semantic_name": "block.attention.key.transpose_heads.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0010"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 98304,
+      "byte_size": 32768,
+      "definition_index": 11,
+      "external": false,
+      "final_use_index": 16,
+      "first_use_index": 16,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 16,
+        "start": 11
+      },
+      "protected": false,
+      "semantic_name": "block.attention.key.transpose_scores.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0011"
+    },
+    {
+      "aligned_byte_size": 65536,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 65536,
+      "definition_index": 12,
+      "external": true,
+      "final_use_index": 13,
+      "first_use_index": 13,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 13,
+        "start": 12
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.attention.value_projection.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0012"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 65536,
+      "byte_size": 32768,
+      "definition_index": 13,
+      "external": false,
+      "final_use_index": 14,
+      "first_use_index": 14,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 14,
+        "start": 13
+      },
+      "protected": false,
+      "semantic_name": "block.attention.value_projection.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0013"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 14,
+      "external": false,
+      "final_use_index": 15,
+      "first_use_index": 15,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 15,
+        "start": 14
+      },
+      "protected": false,
+      "semantic_name": "block.attention.value.reshape.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0014"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 65536,
+      "byte_size": 32768,
+      "definition_index": 15,
+      "external": false,
+      "final_use_index": 21,
+      "first_use_index": 21,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 21,
+        "start": 15
+      },
+      "protected": false,
+      "semantic_name": "block.attention.value.transpose.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0015"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 16,
+      "external": false,
+      "final_use_index": 18,
+      "first_use_index": 18,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 18,
+        "start": 16
+      },
+      "protected": false,
+      "semantic_name": "block.attention.scores.matmul.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0016"
+    },
+    {
+      "aligned_byte_size": 64,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 4,
+      "definition_index": 17,
+      "external": true,
+      "final_use_index": 18,
+      "first_use_index": 18,
+      "immutable": true,
+      "kind": "constant",
+      "lifetime_interval": {
+        "end": 18,
+        "start": 17
+      },
+      "protected": true,
+      "semantic_name": "block.attention.scores.scale",
+      "storage_class": "external_immutable",
+      "value_id": "v0017"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 18,
+      "external": false,
+      "final_use_index": 19,
+      "first_use_index": 19,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 19,
+        "start": 18
+      },
+      "protected": false,
+      "semantic_name": "block.attention.scores.scale_mul.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0018"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 19,
+      "external": false,
+      "final_use_index": 20,
+      "first_use_index": 20,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 20,
+        "start": 19
+      },
+      "protected": false,
+      "semantic_name": "block.attention.causal_mask.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0019"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 20,
+      "external": false,
+      "final_use_index": 21,
+      "first_use_index": 21,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 21,
+        "start": 20
+      },
+      "protected": false,
+      "semantic_name": "block.attention.softmax.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0020"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 21,
+      "external": false,
+      "final_use_index": 22,
+      "first_use_index": 22,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 22,
+        "start": 21
+      },
+      "protected": false,
+      "semantic_name": "block.attention.context.matmul.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0021"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 22,
+      "external": false,
+      "final_use_index": 23,
+      "first_use_index": 23,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 23,
+        "start": 22
+      },
+      "protected": false,
+      "semantic_name": "block.attention.context.transpose.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0022"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 23,
+      "external": false,
+      "final_use_index": 25,
+      "first_use_index": 25,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 25,
+        "start": 23
+      },
+      "protected": false,
+      "semantic_name": "block.attention.context.reshape.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0023"
+    },
+    {
+      "aligned_byte_size": 65536,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 65536,
+      "definition_index": 24,
+      "external": true,
+      "final_use_index": 25,
+      "first_use_index": 25,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 25,
+        "start": 24
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.attention.output_projection.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0024"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 25,
+      "external": false,
+      "final_use_index": 26,
+      "first_use_index": 26,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 26,
+        "start": 25
+      },
+      "protected": false,
+      "semantic_name": "block.attention.output_projection.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0025"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 0,
+      "byte_size": 32768,
+      "definition_index": 26,
+      "external": false,
+      "final_use_index": 34,
+      "first_use_index": 28,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 34,
+        "start": 26
+      },
+      "protected": false,
+      "semantic_name": "block.add.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0026"
+    },
+    {
+      "aligned_byte_size": 512,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 512,
+      "definition_index": 27,
+      "external": true,
+      "final_use_index": 28,
+      "first_use_index": 28,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 28,
+        "start": 27
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.mlp_norm.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0027"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 32768,
+      "definition_index": 28,
+      "external": false,
+      "final_use_index": 30,
+      "first_use_index": 30,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 30,
+        "start": 28
+      },
+      "protected": false,
+      "semantic_name": "block.mlp_norm.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0028"
+    },
+    {
+      "aligned_byte_size": 196608,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 196608,
+      "definition_index": 29,
+      "external": true,
+      "final_use_index": 30,
+      "first_use_index": 30,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 30,
+        "start": 29
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.mlp.0.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0029"
+    },
+    {
+      "aligned_byte_size": 98304,
+      "alignment_bytes": 64,
+      "arena_offset": 131072,
+      "byte_size": 98304,
+      "definition_index": 30,
+      "external": false,
+      "final_use_index": 31,
+      "first_use_index": 31,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 31,
+        "start": 30
+      },
+      "protected": false,
+      "semantic_name": "block.mlp.0.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0030"
+    },
+    {
+      "aligned_byte_size": 98304,
+      "alignment_bytes": 64,
+      "arena_offset": 32768,
+      "byte_size": 98304,
+      "definition_index": 31,
+      "external": false,
+      "final_use_index": 33,
+      "first_use_index": 33,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 33,
+        "start": 31
+      },
+      "protected": false,
+      "semantic_name": "block.mlp.1.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0031"
+    },
+    {
+      "aligned_byte_size": 196608,
+      "alignment_bytes": 64,
+      "arena_offset": null,
+      "byte_size": 196608,
+      "definition_index": 32,
+      "external": true,
+      "final_use_index": 33,
+      "first_use_index": 33,
+      "immutable": true,
+      "kind": "parameter",
+      "lifetime_interval": {
+        "end": 33,
+        "start": 32
+      },
+      "protected": true,
+      "semantic_name": "model.parameter.block.mlp.2.weight",
+      "storage_class": "external_immutable",
+      "value_id": "v0032"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 131072,
+      "byte_size": 32768,
+      "definition_index": 33,
+      "external": false,
+      "final_use_index": 34,
+      "first_use_index": 34,
+      "immutable": false,
+      "kind": "intermediate",
+      "lifetime_interval": {
+        "end": 34,
+        "start": 33
+      },
+      "protected": false,
+      "semantic_name": "block.mlp.2.output",
+      "storage_class": "arena_reusable",
+      "value_id": "v0033"
+    },
+    {
+      "aligned_byte_size": 32768,
+      "alignment_bytes": 64,
+      "arena_offset": 229376,
+      "byte_size": 32768,
+      "definition_index": 34,
+      "external": false,
+      "final_use_index": 35,
+      "first_use_index": null,
+      "immutable": false,
+      "kind": "output",
+      "lifetime_interval": {
+        "end": 35,
+        "start": 34
+      },
+      "protected": true,
+      "semantic_name": "block.output.hidden_states",
+      "storage_class": "arena_output",
+      "value_id": "v0034"
+    }
+  ]
+}
