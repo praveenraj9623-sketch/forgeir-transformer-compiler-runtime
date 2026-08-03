@@ -1,0 +1,67 @@
+{
+  "graph_schema_version": "1.0",
+  "producer_version": "0.1.0",
+  "model_configuration_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "graph_hash": "ff1e5157e2783dcfe957062353c12af775b496948416b3e24d93b48df4654c56",
+  "inputs": ["v0000"],
+  "outputs": ["v0002"],
+  "values": [
+    {
+      "id": "v0000",
+      "semantic_name": "input",
+      "shape": [1, 2],
+      "dtype": "float32",
+      "kind": "input"
+    },
+    {
+      "id": "v0001",
+      "semantic_name": "weight",
+      "shape": [2, 2],
+      "dtype": "float32",
+      "kind": "parameter"
+    },
+    {
+      "id": "v0002",
+      "semantic_name": "output",
+      "shape": [1, 2],
+      "dtype": "float32",
+      "kind": "output"
+    }
+  ],
+  "operations": [
+    {
+      "id": "op0000",
+      "type": "Input",
+      "semantic_name": "input",
+      "inputs": [],
+      "outputs": ["v0000"],
+      "attributes": {}
+    },
+    {
+      "id": "op0001",
+      "type": "Parameter",
+      "semantic_name": "weight",
+      "inputs": [],
+      "outputs": ["v0001"],
+      "attributes": {
+        "archive": "weight_tensors.npz",
+        "archive_key": "weight",
+        "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "id": "op0002",
+      "type": "Linear",
+      "semantic_name": "linear",
+      "inputs": ["v0000", "v0001"],
+      "outputs": ["v0002"],
+      "attributes": {"bias": false, "in_features": 2, "out_features": 2}
+    }
+  ],
+  "weight_manifest": {
+    "reference": "manifest.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "weight_archive": "weight_tensors.npz",
+    "weight_archive_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}

@@ -98,9 +98,7 @@ def test_attention_shape_and_probability_normalization() -> None:
     output, weights = attention.forward_with_weights(hidden_states)
     assert output.shape == (1, 4, 8)
     assert weights.shape == (1, 2, 4, 4)
-    torch.testing.assert_close(
-        weights.sum(dim=-1), torch.ones(1, 2, 4), rtol=0.0, atol=1e-7
-    )
+    torch.testing.assert_close(weights.sum(dim=-1), torch.ones(1, 2, 4), rtol=0.0, atol=1e-7)
 
 
 def test_attention_is_strictly_causal() -> None:
@@ -118,9 +116,7 @@ def test_attention_is_strictly_causal() -> None:
     with torch.inference_mode():
         baseline_output = model(input_ids)
         changed_output = model(changed)
-    torch.testing.assert_close(
-        baseline_output[:, :-1], changed_output[:, :-1], rtol=0.0, atol=0.0
-    )
+    torch.testing.assert_close(baseline_output[:, :-1], changed_output[:, :-1], rtol=0.0, atol=0.0)
 
 
 def test_parameters_inputs_and_repeated_outputs_are_deterministic() -> None:

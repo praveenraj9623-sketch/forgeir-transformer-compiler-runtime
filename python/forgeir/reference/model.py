@@ -93,15 +93,9 @@ class CausalSelfAttention(nn.Module):
 
     def forward_with_weights(self, hidden_states: Tensor) -> tuple[Tensor, Tensor]:
         batch_size, sequence_length = self._validate_hidden_states(hidden_states)
-        query = self._split_heads(
-            self.query_projection(hidden_states), batch_size, sequence_length
-        )
-        key = self._split_heads(
-            self.key_projection(hidden_states), batch_size, sequence_length
-        )
-        value = self._split_heads(
-            self.value_projection(hidden_states), batch_size, sequence_length
-        )
+        query = self._split_heads(self.query_projection(hidden_states), batch_size, sequence_length)
+        key = self._split_heads(self.key_projection(hidden_states), batch_size, sequence_length)
+        value = self._split_heads(self.value_projection(hidden_states), batch_size, sequence_length)
 
         scores = torch.matmul(query, key.transpose(-2, -1)) * self.scale
         mask = self.causal_mask[:sequence_length, :sequence_length].view(
@@ -110,8 +104,10 @@ class CausalSelfAttention(nn.Module):
         masked_scores = scores.masked_fill(~mask, -torch.inf)
         attention_weights = self.stable_softmax(masked_scores)
         attended = torch.matmul(attention_weights, value)
-        merged = attended.transpose(1, 2).contiguous().view(
-            batch_size, sequence_length, self.config.hidden_size
+        merged = (
+            attended.transpose(1, 2)
+            .contiguous()
+            .view(batch_size, sequence_length, self.config.hidden_size)
         )
         return self.output_projection(merged), attention_weights
 

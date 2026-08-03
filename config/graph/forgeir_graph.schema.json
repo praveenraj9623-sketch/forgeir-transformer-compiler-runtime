@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forgeir.dev/schema/graph/1.0/forgeir_graph.schema.json",
+  "title": "ForgeIR graph contract 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "graph_schema_version",
+    "producer_version",
+    "model_configuration_hash",
+    "graph_hash",
+    "inputs",
+    "outputs",
+    "values",
+    "operations",
+    "weight_manifest"
+  ],
+  "properties": {
+    "graph_schema_version": { "const": "1.0" },
+    "producer_version": { "type": "string", "minLength": 1 },
+    "model_configuration_hash": { "$ref": "#/$defs/sha256" },
+    "graph_hash": { "$ref": "#/$defs/sha256" },
+    "inputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/valueId" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/valueId" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "values": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/value" },
+      "minItems": 1
+    },
+    "operations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/operation" },
+      "minItems": 1
+    },
+    "weight_manifest": { "$ref": "#/$defs/weightManifest" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "valueId": {
+      "type": "string",
+      "pattern": "^v[0-9]{4}$"
+    },
+    "operationId": {
+      "type": "string",
+      "pattern": "^op[0-9]{4}$"
+    },
+    "shape": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0 }
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "semantic_name", "shape", "dtype", "kind"],
+      "properties": {
+        "id": { "$ref": "#/$defs/valueId" },
+        "semantic_name": { "type": "string", "minLength": 1 },
+        "shape": { "$ref": "#/$defs/shape" },
+        "dtype": { "enum": ["bool", "float32", "int64"] },
+        "kind": {
+          "enum": ["input", "parameter", "constant", "intermediate", "output"]
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "semantic_name", "inputs", "outputs", "attributes"],
+      "properties": {
+        "id": { "$ref": "#/$defs/operationId" },
+        "type": {
+          "enum": [
+            "Input",
+            "Parameter",
+            "Constant",
+            "MatMul",
+            "Linear",
+            "Add",
+            "Mul",
+            "Div",
+            "RMSNorm",
+            "GELU",
+            "Softmax",
+            "Reshape",
+            "Transpose",
+            "CausalMask"
+          ]
+        },
+        "semantic_name": { "type": "string", "minLength": 1 },
+        "inputs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/valueId" }
+        },
+        "outputs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/valueId" },
+          "minItems": 1
+        },
+        "attributes": { "type": "object" }
+      }
+    },
+    "weightManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference",
+        "sha256",
+        "weight_archive",
+        "weight_archive_sha256"
+      ],
+      "properties": {
+        "reference": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "weight_archive": { "const": "weight_tensors.npz" },
+        "weight_archive_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

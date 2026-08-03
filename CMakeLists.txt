@@ -54,7 +54,15 @@ configure_file(
 
 add_library(forgeir_core STATIC
     cpp/src/core/build_info.cpp
+    cpp/src/core/sha256.cpp
     cpp/src/core/version.cpp
+    cpp/src/ir/data_type.cpp
+    cpp/src/ir/graph.cpp
+    cpp/src/ir/graph_loader.cpp
+    cpp/src/ir/operation.cpp
+    cpp/src/ir/shape.cpp
+    cpp/src/ir/tensor_descriptor.cpp
+    cpp/src/ir/value.cpp
 )
 add_library(ForgeIR::core ALIAS forgeir_core)
 target_include_directories(forgeir_core
@@ -62,7 +70,7 @@ target_include_directories(forgeir_core
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/include>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated>"
 )
-target_link_libraries(forgeir_core PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(forgeir_core PUBLIC nlohmann_json::nlohmann_json)
 set_target_properties(forgeir_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 forgeir_enable_strict_warnings(forgeir_core)
 
@@ -76,7 +84,10 @@ forgeir_enable_strict_warnings(forgeir_py)
 
 include(CTest)
 if(BUILD_TESTING)
-    add_executable(forgeir_tests tests/cpp/core_smoke_test.cpp)
+    add_executable(forgeir_tests
+        tests/cpp/core_smoke_test.cpp
+        tests/cpp/graph_loader_test.cpp
+    )
     target_link_libraries(forgeir_tests
         PRIVATE
             ForgeIR::core
@@ -84,6 +95,9 @@ if(BUILD_TESTING)
             nlohmann_json::nlohmann_json
     )
     forgeir_enable_strict_warnings(forgeir_tests)
+    target_compile_definitions(forgeir_tests PRIVATE
+        FORGEIR_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+    )
 
     include(GoogleTest)
     gtest_discover_tests(forgeir_tests DISCOVERY_TIMEOUT 30)
@@ -96,6 +110,15 @@ if(BUILD_TESTING)
     add_test(NAME forgeir_cli_doctor COMMAND forgeir_cli doctor)
     set_tests_properties(forgeir_cli_doctor PROPERTIES
         PASS_REGULAR_EXPRESSION "\"forgeir_version\""
+    )
+
+    add_test(
+        NAME forgeir_cli_inspect_graph
+        COMMAND forgeir_cli inspect-graph
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/golden/milestone_04_valid_graph.json"
+    )
+    set_tests_properties(forgeir_cli_inspect_graph PROPERTIES
+        PASS_REGULAR_EXPRESSION "\"operation_count\": 3"
     )
 
     add_test(

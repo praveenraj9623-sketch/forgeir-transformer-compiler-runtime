@@ -78,10 +78,7 @@ class TinyTransformerConfig:
 
         hidden_elements = self.batch_size * self.sequence_length * self.hidden_size
         attention_elements = (
-            self.batch_size
-            * self.num_heads
-            * self.sequence_length
-            * self.sequence_length
+            self.batch_size * self.num_heads * self.sequence_length * self.sequence_length
         )
         activation_elements = 8 * hidden_elements + 2 * attention_elements
         if activation_elements > self.MAX_ACTIVATION_ELEMENTS:
