@@ -22,13 +22,7 @@ from forgeir.reference import (
 from forgeir.reference.artifacts import array_content_sha256
 
 ROOT = Path(__file__).resolve().parents[2]
-REAL_GRAPH = (
-    ROOT / "artifacts" / "graphs" / "milestone_06" / "O2" / "tiny_transformer_block.graph.json"
-)
-REAL_WEIGHTS = (
-    ROOT / "artifacts" / "references" / "milestone_02" / "default_run_1" / "weight_tensors.npz"
-)
-PARITY_REPORT = ROOT / "artifacts" / "reports" / "milestone_08" / "numerical_parity.json"
+REAL_GRAPH = ROOT / "tests" / "fixtures" / "tiny_transformer_block_v1_o2.graph.json"
 ABSOLUTE_TOLERANCE = 2.0e-6
 RELATIVE_TOLERANCE = 2.0e-5
 ZERO_HASH = "0" * 64
@@ -347,7 +341,9 @@ def test_standalone_cpu_operator_matches_pytorch(
     assert trace[-1]["arena_offset"] is not None
 
 
-def test_complete_transformer_checkpoints_and_final_output_match_pytorch() -> None:
+def test_complete_transformer_checkpoints_and_final_output_match_pytorch(
+    tmp_path: Path, deterministic_reference_weights: Path
+) -> None:
     config = TinyTransformerConfig()
     model = create_deterministic_model(config)
     input_ids = create_deterministic_input(config)
@@ -358,12 +354,12 @@ def test_complete_transformer_checkpoints_and_final_output_match_pytorch() -> No
     expected = evaluate_graph(
         REAL_GRAPH,
         {"v0000": hidden_states},
-        REAL_WEIGHTS,
+        deterministic_reference_weights,
         capture_value_ids=checkpoints,
     )
     torch.testing.assert_close(expected["v0034"], expected_model_output, rtol=1.0e-6, atol=1.0e-6)
 
-    with np.load(REAL_WEIGHTS, allow_pickle=False) as archive:
+    with np.load(deterministic_reference_weights, allow_pickle=False) as archive:
         parameters = {key: np.ascontiguousarray(archive[key]) for key in archive.files}
     session = forgeir_py.load_graph(str(REAL_GRAPH), "cpu")
     forgeir_py.execute(
@@ -399,8 +395,8 @@ def test_complete_transformer_checkpoints_and_final_output_match_pytorch() -> No
     assert [item["operation_id"] for item in trace] == [f"op{index:04d}" for index in range(35)]
     assert trace[-1]["arena_offset"] is not None
 
-    PARITY_REPORT.parent.mkdir(parents=True, exist_ok=True)
-    PARITY_REPORT.write_text(
+    parity_report = tmp_path / "numerical_parity.json"
+    parity_report.write_text(
         json.dumps(
             {
                 "schema_version": "1.0",
@@ -417,6 +413,8 @@ def test_complete_transformer_checkpoints_and_final_output_match_pytorch() -> No
         + "\n",
         encoding="utf-8",
     )
+    report_document = json.loads(parity_report.read_text(encoding="utf-8"))
+    assert report_document["final"] == checkpoint_errors["v0034"]
 
 
 def test_ieee_nan_and_infinity_propagation(tmp_path: Path) -> None:

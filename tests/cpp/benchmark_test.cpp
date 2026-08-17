@@ -10,9 +10,8 @@
 namespace {
 
 std::shared_ptr<forgeir::RuntimeSession> load_test_session() {
-    const std::filesystem::path graph_path = std::filesystem::path(FORGEIR_SOURCE_DIR) /
-                                             "artifacts" / "graphs" / "milestone_06" / "O2" /
-                                             "tiny_transformer_block.graph.json";
+    const std::filesystem::path graph_path = std::filesystem::path(FORGEIR_SOURCE_DIR) / "tests" /
+                                             "fixtures" / "tiny_transformer_block_v1_o2.graph.json";
     auto session = forgeir::RuntimeSession::load(graph_path.string(), "cpu");
     if (!session.ok()) {
         return nullptr;

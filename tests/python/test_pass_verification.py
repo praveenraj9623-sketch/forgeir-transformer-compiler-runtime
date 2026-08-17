@@ -13,9 +13,7 @@ import forgeir_py
 from forgeir.export.contract import canonical_json_text, compute_graph_hash
 
 ROOT = Path(__file__).resolve().parents[2]
-REAL_GRAPH = (
-    ROOT / "artifacts" / "graphs" / "milestone_03" / "default" / "tiny_transformer_block.graph.json"
-)
+REAL_GRAPH = ROOT / "tests" / "fixtures" / "tiny_transformer_block_v1.graph.json"
 SHAPES = st.lists(st.integers(min_value=1, max_value=4), min_size=0, max_size=4)
 PROPERTY_SETTINGS = settings(
     max_examples=40,

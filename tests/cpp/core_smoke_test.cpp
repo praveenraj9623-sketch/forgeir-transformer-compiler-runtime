@@ -25,7 +25,7 @@ TEST(EnvironmentDiagnosticSmoke, HasStableSchema) {
     EXPECT_TRUE(features.at("cuda").is_boolean());
     EXPECT_TRUE(features.at("hip").is_boolean());
     EXPECT_TRUE(features.at("mlir").is_boolean());
-    EXPECT_FALSE(features.at("cuda").get<bool>());
-    EXPECT_FALSE(features.at("hip").get<bool>());
+    EXPECT_EQ(features.at("cuda").get<bool>(), FORGEIR_CUDA_COMPILED != 0);
+    EXPECT_EQ(features.at("hip").get<bool>(), FORGEIR_HIP_COMPILED != 0);
     EXPECT_EQ(features.at("mlir").get<bool>(), FORGEIR_MLIR_COMPILED != 0);
 }

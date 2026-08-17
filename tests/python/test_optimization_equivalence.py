@@ -20,12 +20,7 @@ from forgeir.reference import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-REAL_GRAPH = (
-    ROOT / "artifacts" / "graphs" / "milestone_03" / "default" / "tiny_transformer_block.graph.json"
-)
-REAL_WEIGHTS = (
-    ROOT / "artifacts" / "references" / "milestone_02" / "default_run_1" / "weight_tensors.npz"
-)
+REAL_GRAPH = ROOT / "tests" / "fixtures" / "tiny_transformer_block_v1.graph.json"
 GRAPH_SCHEMA = ROOT / "config" / "graph" / "forgeir_graph.schema.json"
 
 
@@ -68,7 +63,9 @@ def _validate_schema(graph_path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], graph)
 
 
-def test_real_transformer_o0_o1_o2_match_reference_evaluator(tmp_path: Path) -> None:
+def test_real_transformer_o0_o1_o2_match_reference_evaluator(
+    tmp_path: Path, deterministic_reference_weights: Path
+) -> None:
     config = TinyTransformerConfig()
     model = create_deterministic_model(config)
     input_ids = create_deterministic_input(config)
@@ -76,7 +73,9 @@ def test_real_transformer_o0_o1_o2_match_reference_evaluator(tmp_path: Path) -> 
         hidden_states = model.token_embedding(input_ids)
         expected = model.block(hidden_states)
 
-    baseline = evaluate_graph(REAL_GRAPH, {"v0000": hidden_states}, REAL_WEIGHTS)["v0034"]
+    baseline = evaluate_graph(
+        REAL_GRAPH, {"v0000": hidden_states}, deterministic_reference_weights
+    )["v0034"]
     torch.testing.assert_close(baseline, expected, rtol=1.0e-6, atol=1.0e-6)
 
     for level in ("O0", "O1", "O2"):
@@ -84,7 +83,9 @@ def test_real_transformer_o0_o1_o2_match_reference_evaluator(tmp_path: Path) -> 
         optimized_path.parent.mkdir(parents=True)
         report = _optimize(REAL_GRAPH, optimized_path, level)
         _validate_schema(optimized_path)
-        actual = evaluate_graph(optimized_path, {"v0000": hidden_states}, REAL_WEIGHTS)["v0034"]
+        actual = evaluate_graph(
+            optimized_path, {"v0000": hidden_states}, deterministic_reference_weights
+        )["v0034"]
         torch.testing.assert_close(actual, baseline, rtol=0.0, atol=0.0)
         assert report["operation_counts"] == {"before": 35, "after": 35, "change": 0}
 

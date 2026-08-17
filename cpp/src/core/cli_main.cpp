@@ -31,6 +31,7 @@ void print_usage() {
                  "emit-mlir <graph> --output <file>\n";
 }
 
+#if FORGEIR_MLIR_COMPILED
 nlohmann::json diagnostic_json(const forgeir::Diagnostic& diagnostic) {
     return nlohmann::json{{"severity", forgeir::to_string(diagnostic.severity)},
                           {"code", diagnostic.code},
@@ -38,6 +39,7 @@ nlohmann::json diagnostic_json(const forgeir::Diagnostic& diagnostic) {
                           {"operation_id", diagnostic.operation_id},
                           {"value_id", diagnostic.value_id}};
 }
+#endif
 
 nlohmann::json summary_json(const forgeir::GraphSummary& summary) {
     return nlohmann::json{{"schema_version", summary.schema_version},

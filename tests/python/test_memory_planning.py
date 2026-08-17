@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, cast
 
 ROOT = Path(__file__).resolve().parents[2]
-GRAPH = ROOT / "artifacts" / "graphs" / "milestone_06" / "O2" / "tiny_transformer_block.graph.json"
+GRAPH = ROOT / "tests" / "fixtures" / "tiny_transformer_block_v1_o2.graph.json"
 
 
 def _cli() -> Path:

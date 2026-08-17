@@ -84,7 +84,7 @@ class RecordingPass final : public forgeir::Pass {
 
 TEST(VerificationPipeline, VerifiesFullTransformerGraphWithoutDiagnostics) {
     auto graph = forgeir::GraphLoader::load_from_file(
-        repository_path("artifacts/graphs/milestone_03/default/tiny_transformer_block.graph.json"));
+        repository_path("tests/fixtures/tiny_transformer_block_v1.graph.json"));
     ASSERT_TRUE(graph.ok()) << graph.status().message();
 
     const forgeir::VerificationReport report = forgeir::verify_graph(graph.value());

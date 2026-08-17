@@ -251,9 +251,8 @@ TEST(CpuOperators, RejectsNonContiguousInputAndUnknownBackend) {
 }
 
 TEST(CpuRuntimeSession, LoadsRealGraphWithMilestoneSevenArenaPlan) {
-    const std::filesystem::path graph_path = std::filesystem::path(FORGEIR_SOURCE_DIR) /
-                                             "artifacts" / "graphs" / "milestone_06" / "O2" /
-                                             "tiny_transformer_block.graph.json";
+    const std::filesystem::path graph_path = std::filesystem::path(FORGEIR_SOURCE_DIR) / "tests" /
+                                             "fixtures" / "tiny_transformer_block_v1_o2.graph.json";
     const auto session = forgeir::RuntimeSession::load(graph_path.string(), "cpu");
     ASSERT_TRUE(session.ok()) << session.status().message();
     EXPECT_EQ(session.value()->memory_plan().backend, "cpu");
