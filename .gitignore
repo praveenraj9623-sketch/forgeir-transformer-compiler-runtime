@@ -39,6 +39,9 @@ artifacts/weights/**
 # Benchmark outputs
 benchmarks/results/**
 !benchmarks/results/.gitkeep
+!benchmarks/results/cuda/
+benchmarks/results/cuda/**
+!benchmarks/results/cuda/milestone_12.json
 
 # GPU build outputs
 backends/cuda/build/

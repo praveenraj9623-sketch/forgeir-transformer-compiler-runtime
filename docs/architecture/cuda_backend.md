@@ -2,9 +2,11 @@
 
 ## Status and scope
 
-Milestone 12 is implemented for offline review but is not complete. The development host has no
-NVIDIA GPU, NVIDIA driver tools, or CUDA compiler, so none of the CUDA sources or parity claims have
-been executed locally. No CUDA benchmark JSON exists in the repository.
+Milestone 12 is complete. The optional backend was built and validated from a clean public clone on
+a Google Colab NVIDIA Tesla T4. The CUDA-enabled suite passed 83/83 CTest tests, and the PyTorch
+CUDA parity harness passed all 36 cases. The measured evidence is stored in
+`benchmarks/results/cuda/milestone_12.json`; full provenance is recorded in
+`docs/phase_reports/phase_12.md`.
 
 This work is a focused float32 kernel lab for GELU, final-axis RMSNorm, final-axis row Softmax, and
 FusedBiasGELU. It is not a complete CUDA graph runtime. MatMul, Linear, device-resident graph
@@ -79,8 +81,17 @@ rendering are outside the kernel event interval. Each result records raw kernel 
 - CMake-detected NVCC version;
 - block size, grid size, and dynamic shared-memory bytes.
 
-These values become evidence only after the code runs on NVIDIA hardware. The present source and
-documentation contain no measured timings or performance claims.
+The committed Milestone 12 result contains these values from the Tesla T4 validation run. Event
+timings remain operation-level observations from that environment; they are not used to claim a
+speedup over PyTorch.
+
+## Verified hardware evidence
+
+The clean-clone validation used NVIDIA Tesla T4 compute capability 7.5, CUDA runtime 12050, CUDA
+driver 13000, NVCC 12.5.82, PyTorch 2.6.0+cu124, and PyTorch CUDA build 12.4. All 36 cases passed
+with maximum absolute error `7.152557373046875e-07` and maximum relative error
+`2.2558165948922222e-07`. The validated source commit was
+`fe04aeeb39940722ec7dc0bc10561e93bef75752`.
 
 ## PyTorch CUDA parity protocol
 
@@ -110,6 +121,7 @@ requires the user to set the real Git repository URL, refuses to reuse a stale c
 schema/status/hardware fields, and exports a ZIP. Every subprocess uses `check=True`; no cell
 suppresses a failed command.
 
-The notebook cannot be executed on the current AMD-only host. Its JSON structure and failure
-handling are checked offline, but successful Colab execution and the resulting hardware evidence
-remain required before this milestone can be marked complete.
+The original AMD-only development host could validate only notebook structure and failure handling.
+The final workflow was subsequently executed successfully on the Tesla T4, producing the tracked
+result JSON. The local Windows host still cannot rerun CUDA, which does not affect the recorded
+real-hardware evidence.

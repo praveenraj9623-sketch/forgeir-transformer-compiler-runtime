@@ -1,14 +1,17 @@
-# Phase 12: Optional handwritten NVIDIA CUDA backend (incomplete)
+# Phase 12: Optional handwritten NVIDIA CUDA backend (complete)
 
 ## Status
 
-Milestone 12 is **incomplete**. The reviewable build integration, handwritten CUDA sources,
-validation harness, tests, scripts, and Colab workflow are implemented, but this host has no
-NVIDIA GPU or CUDA toolkit. Consequently, the CUDA target was not compiled, no CUDA kernel was
-executed, no PyTorch CUDA parity error was measured, and no result JSON was created. This phase
-must not be marked complete until the documented workflow passes on matching NVIDIA hardware.
+Milestone 12 is **complete**. The optional backend was built from a clean public clone and executed
+on a real Google Colab NVIDIA Tesla T4. The CUDA-enabled CTest suite passed 83/83 tests, and all 36
+PyTorch CUDA parity/validation cases passed. The measured result is tracked at
+`benchmarks/results/cuda/milestone_12.json`.
 
-## Delivered offline-reviewable scope
+The initial implementation and offline review occurred on an AMD-only Windows host. That history
+is retained below because it documents the deliberate hardware gate and the absence of fabricated
+GPU claims before matching NVIDIA execution became available.
+
+## Delivered implementation scope
 
 - `FORGEIR_ENABLE_CUDA` defaults to `OFF`; the normal CPU build neither enables CUDA nor searches
   for the CUDA toolkit. The generated build diagnostic uses the actual compiled feature state.
@@ -33,8 +36,8 @@ must not be marked complete until the documented workflow passes on matching NVI
 - The Colab notebook stops on every failed command, checks real hardware and tooling before the
   build, runs the complete tests and parity workflow, validates the result, and exports it.
 
-This milestone does not implement CUDA MatMul/Linear, a device-resident graph arena, complete graph
-execution on CUDA, multi-stream scheduling, or a production GPU backend.
+This milestone does not implement CUDA MatMul/Linear, a complete device-resident graph arena, full
+graph CUDA execution, multi-stream scheduling, or a distributed CUDA runtime.
 
 ## Files created
 
@@ -59,7 +62,9 @@ The milestone also updates `CMakeLists.txt`, `CMakePresets.json`,
 diagnostic, backend registry, warning policy, test registration, binding, and typing configuration.
 The former `.gitkeep` files in populated CUDA source directories were removed.
 
-## Hardware and tool probe
+## Historical offline-development hardware probe
+
+Before the final Colab validation, the local Windows development host was probed with:
 
 Commands:
 
@@ -81,11 +86,11 @@ Outcome on 2026-08-03:
 - PyTorch: `2.13.0+cpu`
 - `torch.cuda.is_available()`: `False`
 
-There is therefore no NVIDIA GPU model, compute capability, CUDA runtime version, CUDA driver
+At that stage there was no NVIDIA GPU model, compute capability, CUDA runtime version, CUDA driver
 version, NVCC version, launch geometry, CUDA timing, maximum absolute error, or maximum relative
-error to report from this machine.
+error to report from the local machine.
 
-## CPU-only regression verification
+## Historical CPU-only regression verification
 
 Commands:
 
@@ -135,7 +140,7 @@ bash -n /mnt/c/Users/admin/Desktop/ForgeIR/scripts/linux/configure_cuda.sh `
 
 Outcome: both checks passed.
 
-## CUDA build and execution gate
+## Historical local CUDA build and execution gate
 
 CUDA-enabled configure command:
 
@@ -156,29 +161,95 @@ python -m forgeir.benchmark.cuda_validation `
   --warmup 10 --iterations 50
 ```
 
-Outcome: exit code 1 with `RuntimeError: PyTorch reports no CUDA-capable NVIDIA device`.
-`benchmarks/results/cuda/milestone_12.json` does not exist; the directory contains only
-`.gitkeep`. No fake benchmark or parity artifact was created.
+Outcome at that time: exit code 1 with
+`RuntimeError: PyTorch reports no CUDA-capable NVIDIA device`. No local result was created, and no
+fake benchmark or parity artifact was used to close the milestone.
 
-## Notebook validation limitation
+## Historical notebook validation limitation
 
-The notebook is valid JSON with nbformat 4 metadata and 10 cells. Every subprocess uses
-`check=True`, and the notebook has explicit goal, setup, build, check, export, and next-step
-sections. Local `nbformat`, `nbclient`, and Jupyter modules are unavailable, and installing them is
-outside this milestone's authorization. More importantly, this AMD-only machine cannot execute
-the notebook's NVIDIA checks. The notebook has therefore not been marked executed or validated on
-hardware.
+The notebook was validated offline as JSON with nbformat 4 metadata and 10 cells. Every subprocess
+uses `check=True`, and the notebook has explicit goal, setup, build, check, export, and next-step
+sections. The AMD-only host could not execute the notebook's NVIDIA checks. That limitation was
+subsequently resolved by the final Tesla T4 Colab run described below.
 
-## Required completion evidence
+## Final NVIDIA hardware validation
 
-On a real NVIDIA Colab or Linux host, set the repository URL in
-`backends/cuda/notebooks/forgeir_cuda_milestone_12.ipynb` and run every cell top to bottom. A future
-completion report must include a successfully built CUDA preset, passing CUDA CTest and PyTorch
-CUDA parity cases, `benchmarks/results/cuda/milestone_12.json`, and the actual GPU model, compute
-capability, CUDA runtime, driver, NVCC version, launch geometry, maximum absolute error, and maximum
-relative error from that same run.
+The final validation ran from a clean public clone at commit
+`fe04aeeb39940722ec7dc0bc10561e93bef75752` (`fix: make CUDA validation clean-clone reproducible`)
+on a Google Colab NVIDIA Tesla T4. The `linux-gcc-cuda-release` preset configured and built with
+CUDA 12.5/NVCC. The generated evidence file is:
+
+```text
+benchmarks/results/cuda/milestone_12.json
+```
+
+Its SHA-256 is `b7fb4cdf1869ff002556fb5e893a77a6634ca3fb5e0fe4d198ffa1dd4be36409`.
+
+Hardware and software metadata recorded by that file:
+
+- GPU: NVIDIA Tesla T4, device ordinal 0
+- Compute capability: 7.5
+- CUDA runtime version: 12050
+- CUDA driver version: 13000
+- NVCC version: 12.5.82
+- PyTorch version: 2.6.0+cu124
+- PyTorch CUDA build: 12.4
+- Deterministic seed: 42
+- Warm-up iterations per case: 10
+- Measured iterations per case: 50
+
+CTest outcome:
+
+- 83/83 tests passed
+- 100% tests passed
+- 0 failures
+- Total CTest time: 7.35 seconds
+
+PyTorch CUDA parity outcome:
+
+- Status: `passed`
+- Validation cases: 36
+- Combined-tolerance violations: 0 across all cases
+- Maximum absolute error: `7.152557373046875e-07`
+- Maximum relative error: `2.2558165948922222e-07`
+- Configured tolerance: `5e-06 + 5e-05 * abs(expected)`
+
+The result contains CUDA-event timing observations for ForgeIR and PyTorch kernels, but Milestone
+12 makes no speedup claim. Its completion claim is correctness and real-hardware execution of the
+four documented handwritten kernels.
+
+## Real-hardware portability and clean-clone repairs
+
+The first NVIDIA build exposed two portability defects that the Windows-only offline review could
+not reveal:
+
+1. `backends/cuda/src/cuda_backend.cu` now explicitly includes `<math_constants.h>` so
+   `CUDART_INF_F` is declared under CUDA 12.5/NVCC.
+2. `diagnostic_json()` in `cpp/src/core/cli_main.cpp` is compiled only when
+   `FORGEIR_MLIR_COMPILED` is true, preventing GCC `-Werror` from rejecting an unused function in
+   the CUDA-enabled, MLIR-disabled build.
+
+The clean-clone run also exposed tests that depended on ignored development graphs. The canonical
+35-operation transformer graphs were moved into deterministic committed fixtures under
+`tests/fixtures`, C++ and Python tests were redirected to those fixtures, and deterministic seed-42
+weights are generated in pytest temporary storage. Feature diagnostic tests now compare CUDA, HIP,
+and MLIR states with their generated `FORGEIR_*_COMPILED` macros. This preserves the original
+runtime memory-plan assertions while making the complete test suite independent of ignored
+`artifacts/` content.
+
+## Remaining scope limitations
+
+Milestone 12 remains a focused optional kernel backend, not a complete CUDA graph runtime. It does
+not provide:
+
+- CUDA MatMul or Linear kernels;
+- a complete device-resident graph arena;
+- full graph CUDA execution;
+- multi-stream scheduling; or
+- a distributed CUDA runtime.
 
 ## Final status
 
-Milestone 12 remains incomplete. Offline-reviewable code and failure gates are present and the
-CPU-only project is unchanged and fully passing, but no real NVIDIA execution evidence exists.
+Milestone 12 is complete. The CPU-only build remains optional and independent of CUDA, and the
+documented handwritten CUDA kernels have clean-clone build, test, PyTorch parity, and real Tesla T4
+execution evidence. The completion claim is limited to the implemented kernel scope above.
